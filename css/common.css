@@ -1,0 +1,27 @@
+.dn-display-flex{
+    display: flex;
+}
+.dn-space-between{
+    justify-content: space-between;
+}
+.dn-display-none{
+    display: none !important;
+}
+.dn-cursor-pointer{
+    cursor: pointer;
+}
+.dn-cross-icon{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #7080af;
+    clip-path: polygon(0 10%, 10% 0, 50% 40%, 89% 0, 100% 10%, 60% 50%, 100% 90%, 90% 100%, 50% 60%, 10% 100%, 0 89%, 40% 50%);
+}
+.dn-error{
+    color: red;
+}
+
+.dn-success{
+    color: green;
+}
