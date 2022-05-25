@@ -25,3 +25,7 @@
 .dn-success{
     color: green;
 }
+
+.dn-overflow-hidden{
+    overflow: hidden;
+}

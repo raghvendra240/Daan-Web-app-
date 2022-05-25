@@ -24,7 +24,6 @@ mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
 });
 
-
 //Unique string
 const { v4: uuidv4 } = require("uuid");
 
@@ -40,7 +39,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 //Email sent function
-let sendMail = require("./services/emailService")
+let sendMail = require("./services/emailService");
 
 //ROUTES
 app.get("/", (req, res) => {
@@ -53,51 +52,58 @@ app.get("/user/verify/:userId/:uniqueString", (req, res) => {
     .then((result) => {
       if (result.length) {
         const { expiresAt } = result[0];
-        const hashedUniqueString  = result[0].uniqueString;
+        const hashedUniqueString = result[0].uniqueString;
         if (expiresAt < Date.now()) {
           //record expired
           USER_VERIFICATION_MODAL.deleteOne({ userId })
             .then(() => {
               //Delete the user record also
-              USER_MODAL.deleteOne({_id: userId}).then(() => {
-                let msg =
-                  "The verification link is expired, Please Register again";
-              }).catch(() => {
-                let msg =
-                  "An error occurred while deleting expired user Information record";
-              });;
+              USER_MODAL.deleteOne({ _id: userId })
+                .then(() => {
+                  let msg =
+                    "The verification link is expired, Please Register again";
+                })
+                .catch(() => {
+                  let msg =
+                    "An error occurred while deleting expired user Information record";
+                });
             })
             .catch(() => {
               let msg =
                 "An error occurred while deleting expired user verification record";
             });
-        }else{
+        } else {
           //Valid Verification record exists
           //First compare the unique string
-          bcrypt.compare(uniqueString, hashedUniqueString).then((result) => {
-            if(result){
-              //Matched
-              USER_MODAL.updateOne({_id: userId}, {isVerified: true}).then(() =>{
-                USER_VERIFICATION_MODAL.deleteOne({userId}).then(() => {
-                  
-                }).catch((err) => {
-                  console.log(err);
-                  let msg = "An error occurred while deleting verified user verification data"
-                });
-
-              }).catch((err) =>{
-                console.log(err);
-                let msg = "An error occurred while updating verification status of User"
-              });
-            }else{
-              //Record exists but wrong unique string
-              let msg = "Invalid verification detail passed. Check you inbox again."
-            }
-
-          }).catch(() =>{
-            let msg =
-            "An error occurred while comparing  unique string";
-          })
+          bcrypt
+            .compare(uniqueString, hashedUniqueString)
+            .then((result) => {
+              if (result) {
+                //Matched
+                USER_MODAL.updateOne({ _id: userId }, { isVerified: true })
+                  .then(() => {
+                    USER_VERIFICATION_MODAL.deleteOne({ userId })
+                      .then(() => {})
+                      .catch((err) => {
+                        console.log(err);
+                        let msg =
+                          "An error occurred while deleting verified user verification data";
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    let msg =
+                      "An error occurred while updating verification status of User";
+                  });
+              } else {
+                //Record exists but wrong unique string
+                let msg =
+                  "Invalid verification detail passed. Check you inbox again.";
+              }
+            })
+            .catch(() => {
+              let msg = "An error occurred while comparing  unique string";
+            });
         }
       } else {
         let msg =
@@ -154,19 +160,13 @@ app.post("/signup", (req, res) => {
               firstName,
               lastName,
               email,
-              password,
+              password: hashedPassword,
               daan: 1,
             });
             newUser
               .save()
               .then((result) => {
-                // res.json({
-                //   status: "Success",
-                //   message: "User Registered",
-                //   result: result,
-                // });
-
-                //Handle email verification
+                //send OTP
                 sendMail(result, res);
               })
               .catch((err) => {
@@ -194,6 +194,119 @@ app.post("/signup", (req, res) => {
     });
 });
 
+app.post("/login", (req, res) => {
+  let { email, password } = req.body;
+  USER_MODAL.find({ email }, (err, docs) => {
+    if (err) {
+      console.log(err);
+      res.json({
+        status: "Failed",
+        message: "Something went wrong. Please try again..",
+      });
+    } else {
+      if (!docs.length) {
+        res.json({
+          status: "Failed",
+          message: "email not registered",
+        });
+      } else {
+        password = password.toString();
+        let hashedPassword = docs[0].password;
+        bcrypt.compare(password, hashedPassword, function (err, result) {
+          if (result) {
+            res.json({
+              status: "Success",
+            });
+          } else {
+            res.json({
+              status: "Failed",
+              message: "Wrong Password",
+            });
+          }
+        });
+      }
+    }
+  });
+});
+
+app.post("/verify/otp", (req, res) => {
+  console.log("Body", req.body);
+  let { OTP, email } = req.body;
+  USER_MODAL.find({ email })
+    .then((result) => {
+      let { _id } = result[0];
+      USER_VERIFICATION_MODAL.find({ userId: _id })
+        .then((result) => {
+          console.log("User verifcation", result);
+          if (result.length) {
+            let { expiresAt, OTP } = result[0];
+            if (expiresAt < Date.now()) {
+              // delete user record
+              USER_MODAL.deleteOne({ _id })
+                .then(() => {
+                  res.json({
+                    status: "Failed",
+                    message: "OTP Expired. Please Register again",
+                  });
+                })
+                .catch(() => {
+                  res.json({
+                    status: "Failed",
+                    message: "Failed to delete tangling user detail",
+                  });
+                });
+            } else {
+              //User verified
+              if (result[0].OTP != OTP) {
+                res.json({
+                  status: "Failed",
+                  message: "Wrong OTP",
+                });
+              }
+              USER_VERIFICATION_MODAL.deleteOne({ userId: _id });
+              USER_MODAL.updateOne(
+                { _id: _id },
+                { isVerified: true },
+                (err, docs) => {
+                  if (err) {
+                    res.json({
+                      err,
+                    });
+                  } else {
+                    res.json({
+                      docs,
+                    });
+                  }
+                }
+              );
+              res.json({
+                status: "Success",
+                message: "OTP verified now login",
+              });
+            }
+          } else {
+            res.json({
+              status: "Failed",
+              message: "Register Again",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          res.json({
+            status: "Failed",
+            message: "An error ocurred while fetching verification record",
+          });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        status: "Failed",
+        message: "An error ocurred while fetching verification record (email)",
+      });
+    });
+});
 //SERVER
 app.listen(PORT, () => {
   console.log(`Server succesfully started at port: ${PORT}`);

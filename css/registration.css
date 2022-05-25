@@ -194,7 +194,7 @@
     margin-top: 5px;
 }
 
-.form .button input{
+.form .button{
     border: none;
     color: #fff;
     font-size: 17px;
@@ -217,3 +217,65 @@
 .form-error{
     margin-top: 30px;
 }
+
+/* Button  Spinner  */
+.btn-loading .btn-text{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+  
+  @keyframes button-loading-spinner {
+    from {
+      transform: rotate(0turn);
+    }
+  
+    to {
+      transform: rotate(1turn);
+    }
+  }
+  @keyframes move-left {
+    from {
+      transform: translateX(0px);
+    }
+  
+    to {
+      transform: translateX(-30vw);
+      display: none;
+      width: 0;
+    }
+  }
+  .registration-form{
+    width: 100%;
+  }
+  .registration-form.dn-animate{
+    animation-name: move-left;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+
+  }
+
+  .otp-verification-form{
+      display: none;
+      width: 0;
+  }
+
+  .otp-verification-form.dn-visible{
+      display: block;
+      width: 100%;
+  }

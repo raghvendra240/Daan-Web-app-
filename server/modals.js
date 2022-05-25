@@ -12,7 +12,7 @@ let userSchema = new mongoose.Schema({
 
 let userVerificationSchema = new mongoose.Schema({
   userId: { type: String},
-  uniqueString:{type: String},
+  OTP:{type: String},
   createdAt: { type: Date},
   expiresAt:{type: Date},
   verified: {type: Boolean}

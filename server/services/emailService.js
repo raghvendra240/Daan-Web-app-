@@ -14,6 +14,9 @@ const saltRounds = 10;
 //OTP service
 let generateOTP = require("./otpService");
 
+//User verification modal
+const USER_VERIFICATION_MODAL = require("../modals").userVerificationModal;
+
 module.exports = async function sendMail({ _id, email }, res) {
   const CLIENT_EMAIL = process.env.EMAIL;
   const CLIENT_ID = process.env.EMAIL_CLIENT_ID;
@@ -56,10 +59,30 @@ module.exports = async function sendMail({ _id, email }, res) {
     transport
       .sendMail(mailOptions)
       .then((result) => {
-        res.json({
-          status: "Pending",
-          message: "Registration completed...Please verify your email",
+        //Crete verification object
+        const newVerificationModal = new USER_VERIFICATION_MODAL({
+          userId: _id,
+          OTP: OTP,
+          createdAt: Date.now(),
+          expiresAt: Date.now() + 1800000,
+          verified: false,
         });
+        newVerificationModal
+          .save()
+          .then((result) => {
+            res.json({
+              status: "Pending",
+              message: "Registration completed...Please verify your email",
+              data: email,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.json({
+              status: "Failed",
+              message: "Registration Failed. Please try again...",
+            });
+          });
       })
       .catch((err) => {
         res.json({
