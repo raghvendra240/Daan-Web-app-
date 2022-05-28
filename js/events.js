@@ -73,6 +73,10 @@ $(".registration-form").submit((event) => {
   $.ajax({
     type: "POST",
     url: "http://localhost:3000/signup",
+    crossDomain: true,
+    xhrFields: {
+        withCredentials: true
+    },
     data: data,
     success: function (data) {
       if(data.status="Success"){
@@ -114,6 +118,10 @@ $(".otp-verification-form").submit((event) => {
   $.ajax({
     type: "POST",
     url: "http://localhost:3000/verify/otp",
+    crossDomain: true,
+    xhrFields: {
+        withCredentials: true
+    },
     data: data,
     success: function (data) {
      console.log("OTP", data);
@@ -139,9 +147,12 @@ $('.login-form').submit((event) => {
   $.ajax({
     type: "POST",
     url: "http://localhost:3000/login",
+    crossDomain: true,
+    xhrFields: {
+        withCredentials: true
+    },
     data: data,
     success: function (data) {
-      debugger;
      if(data.status == "Success"){
        $(".login-form .button").removeClass('btn-loading');
        onSuccess("Successfully logged in");

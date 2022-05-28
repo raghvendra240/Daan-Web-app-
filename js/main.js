@@ -31,7 +31,9 @@ function startSwiper() {
   });
 }
 
-fetch("http://localhost:3000/topdonor")
+fetch("http://localhost:3000/topdonor", {
+  credentials: 'include'
+})
   .then((response) => response.json())
   .then((data) => {
     populateCardData(data);

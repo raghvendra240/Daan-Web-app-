@@ -10,11 +10,23 @@ var bodyParser = require("body-parser");
 let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(bodyParser);
+
+
+//Cookies management
+var cookieSession = require('cookie-session')
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.COOKIE_KEY],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
+
 
 // CORS
 let cors = require("cors");
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5500",
+  credentials: true
+}));
 
 //MONGOOSE
 const mongoose = require("mongoose");
@@ -42,7 +54,7 @@ const saltRounds = 10;
 let sendMail = require("./services/emailService");
 
 //ROUTES
-app.get("/", (req, res) => {
+app.get("/", (req, res) => {  
   res.send("Server is running...");
 });
 
@@ -131,6 +143,14 @@ app.get("/user/:email", (req, res) => {
 });
 
 app.get("/topdonor", (req, res) => {
+  console.log("Donor",req.session);
+  if(!req.session.isAuthenticated){
+    res.json({
+      status: "Failed",
+      Message: "Un authenticated"
+    })
+  }
+ else{
   USER_MODAL.find({}, (err, users) => {
     users.sort((donorA, donorB) => {
       if (donorA.daan > donorB.daan) return 1;
@@ -138,6 +158,7 @@ app.get("/topdonor", (req, res) => {
     });
     res.send(users.slice(-9).reverse());
   });
+ }
 });
 
 app.post("/signup", (req, res) => {
@@ -194,6 +215,15 @@ app.post("/signup", (req, res) => {
     });
 });
 
+app.get('/auth', (req, res) => {
+  console.log(req.session.isAuthenticated)
+  req.session.isAuthenticated = true;
+  res.json({
+    status: "Authenticated",
+    message: "Authenticated"
+  })
+})
+
 app.post("/login", (req, res) => {
   let { email, password } = req.body;
   USER_MODAL.find({ email }, (err, docs) => {
@@ -214,8 +244,12 @@ app.post("/login", (req, res) => {
         let hashedPassword = docs[0].password;
         bcrypt.compare(password, hashedPassword, function (err, result) {
           if (result) {
+            console.log("Prev",req.session);
+            req.session.isAuthenticated = true;
+            console.log("After",req.session);
             res.json({
               status: "Success",
+              message: "logged in successfully"
             });
           } else {
             res.json({
@@ -267,17 +301,6 @@ app.post("/verify/otp", (req, res) => {
               USER_MODAL.updateOne(
                 { _id: _id },
                 { isVerified: true },
-                (err, docs) => {
-                  if (err) {
-                    res.json({
-                      err,
-                    });
-                  } else {
-                    res.json({
-                      docs,
-                    });
-                  }
-                }
               );
               res.json({
                 status: "Success",
