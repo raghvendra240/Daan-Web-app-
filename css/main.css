@@ -1,27 +1,133 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
-body{
-    margin: 0;
-    padding: 0;
+.dn-user-profile {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
 }
 
-header{
-    background-color: #E8F9FD;
-    padding: 15px 10px;
+.dn-user-profile.dn-hidden {
+  display: none !important;
 }
 
- .dn-search{
+.dn-dropdown-icon {
+  padding-top: 5px;
+}
+
+.dn-user-image {
+  width: 35x;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.dn-user-info {
+  display: none;
+  z-index: 1000;
+  right: 0;
+  top: 66px;
+  width: 288px;
+  position: absolute;
+  background: #fff;
+  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12), 0 6px 6px 0 rgba(0, 0, 0, 0.24);
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12), 0 6px 6px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
+}
+
+.dn-user-info .dn-profile {
+  width: 100%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px 16px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.dn-user-info .dn-profile .dn-profile-photo img {
+  width: 56px;
+  height: 56px;
+}
+
+.dn-user-info .dn-profile .dn-user-intro {
+  padding: 0 0 0 12px;
+}
+
+.dn-user-info .dn-profile .dn-user-intro .hello {
+  margin: 0 0 4px;
+}
+
+.dn-user-info .dn-profile .dn-user-intro .user-name {
+  font-weight: 500;
+  margin: 0 0 4px;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.dn-user-info .dn-profile .dn-user-intro .edit-profile {
+  cursor: pointer;
+  font-size: 14px;
+  color: #002f34;
+  text-decoration: underline;
+}
+
+.dn-user-info .dn-profile-options {
+  border-top: 1px solid rgba(14, 4, 5, 0.2);
+}
+
+.dn-user-info .dn-logout-options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 16px;
+  text-decoration: none;
+  color: #002f34;
+  height: 48px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dn-user-info .dn-logout-options:hover {
+  background-color: #cbc9c9;
+}
+
+.dn-user-info .dn-logout-options .logout-logo {
+  padding: 2px 0  16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #E8F9FD;
+  padding: 15px 10px;
+}
+
+.dn-search {
   width: 60%;
   margin: auto;
 }
+
 /*
 .dn-user{
   flex-grow: 1;
 } */
-
 .search {
   width: 100%;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -36,7 +142,7 @@ header{
   color: #9DBFAF;
 }
 
-.searchTerm:focus{
+.searchTerm:focus {
   color: #00B4CC;
 }
 
@@ -53,7 +159,7 @@ header{
 }
 
 /*Resize the wrap to see the search bar change!*/
-.wrap{
+.wrap {
   /* width: 30%;
   position: absolute;
   top: 50%;
@@ -61,7 +167,7 @@ header{
   transform: translate(-50%, -50%); */
 }
 
-.btn-primary{
+.btn-primary {
   padding: 8px 24px;
   margin: 5px;
   font-size: 13px;
@@ -72,11 +178,12 @@ header{
   border-radius: 8px;
   cursor: pointer;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
   background-color: #0AA1DD;
 }
 
-.btn-secondary{
+.btn-secondary {
   cursor: pointer;
   padding: 8px 24px;
   margin: 5px;
@@ -87,6 +194,8 @@ header{
   border: 0px;
   border-radius: 8px;
 }
-.btn-secondary:hover{
+
+.btn-secondary:hover {
   background-color: #103e62;
 }
+/*# sourceMappingURL=main.css.map */

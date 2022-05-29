@@ -1,6 +1,6 @@
 function populateCardData(data) {
-  let container = $(document.getElementsByClassName('swiper-wrapper content'));
-  let elem = $(document.getElementsByClassName('swiper-slide card'));
+  let container = $(document.getElementsByClassName("swiper-wrapper content"));
+  let elem = $(document.getElementsByClassName("swiper-slide card"));
   $.each(data, (index, user) => {
     if (index == 0) {
       elem.find(".name").text(user.firstName);
@@ -32,7 +32,7 @@ function startSwiper() {
 }
 
 fetch("http://localhost:3000/topdonor", {
-  credentials: 'include'
+  credentials: "include",
 })
   .then((response) => response.json())
   .then((data) => {
@@ -40,4 +40,20 @@ fetch("http://localhost:3000/topdonor", {
   })
   .finally(() => {
     startSwiper();
+  });
+// Check if the user is authenticated
+fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
+  .then((response) => response.json())
+  .then((isAuthenticated) => {
+    if (isAuthenticated) {
+      $(".registration-section").removeClass('visible');
+      $(".dn-login-regsitration-forms").hide();
+      $(".dn-user-profile").removeClass("dn-hidden");
+    }
+  })
+  .catch((error) => {
+    console.log(
+      "Something went wrong while getting the authentication information",
+      error
+    );
   });

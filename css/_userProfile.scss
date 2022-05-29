@@ -1,0 +1,82 @@
+.dn-user-profile{
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &.dn-hidden{
+        display: none !important;
+    }
+}
+
+.dn-dropdown-icon {
+    padding-top:5px
+}
+
+.dn-user-image{
+    width: 35x;
+    height: 35px;
+    border-radius:50%;
+}
+
+.dn-user-info{
+    display: none;
+    z-index: 1000;
+    right: 0;
+    top: 66px;
+    width: 288px;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 6px 0 rgba(0 ,0 ,0 ,0.12), 0 6px 6px 0 rgba(0 ,0 ,0 , 0.24);
+    border-radius: 4px;
+
+    .dn-profile{
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        padding: 20px 16px;
+        box-sizing: border-box;
+        .dn-profile-photo img{
+            width: 56px;
+            height: 56px;
+        }
+        .dn-user-intro{
+            padding: 0 0 0 12px;
+            .hello{
+                margin: 0 0 4px;
+            }
+            .user-name{
+                font-weight: 500;
+                margin: 0 0 4px;
+                font-size: 20px;
+                line-height: 24px;
+            }
+            .edit-profile{
+                cursor: pointer;
+                font-size: 14px;
+                color: #002f34;
+                text-decoration: underline;
+            }
+        }
+    }
+    .dn-profile-options{
+        border-top: 1px solid rgba(14,4,5,.2);
+    }
+    .dn-logout-options{
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        text-decoration: none;
+        color: #002f34;
+        height: 48px;
+        cursor: pointer;
+        font-size: 16px;
+        &:hover {
+            background-color: rgb(203, 201, 201);
+        }
+        .logout-logo{
+            padding: 2px 0  16px;
+        }
+    }
+    
+}
+

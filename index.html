@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/card.css" />
     <link rel="stylesheet" href="css/registration.css" />
+    <link rel="stylesheet" href="css/userProfile.css" />
     <title>DAAN</title>
   </head>
   <body>
@@ -41,7 +42,7 @@
           </button>
         </div>
       </div>
-      <div class="dn-user dn-display-flex">
+      <div class="dn-user dn-login-regsitration-forms dn-display-flex">
         <div class="">
           <button class="btn-primary" id="login-btn">
             <span>Login</span>
@@ -51,6 +52,34 @@
           <button class="btn-secondary" id="signup-btn">
             <span>Start donating</span>
           </button>
+        </div>
+      </div>
+      <div class="dn-user-profile  dn-hidden">
+        <div class="dn-display-flex">
+          <div>
+            <img class="dn-user-image" src="images/default-avatar.jpg" alt="" />
+          </div>
+          <div class="dn-dropdown-icon">
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+        </div>
+        <div class="dn-user-info">
+          <div class="dn-profile">
+            <div class="dn-profile-photo">
+              <img src="images/default-avatar.jpg" alt="">
+            </div>
+            <div class="dn-user-intro">
+              <div class="hello">Hello,</div>
+              <div class="user-name">Raghvendra Gautam</div>
+              <div class="edit-profile">View and edit profile</div>
+            </div>
+          </div>
+          <div class="dn-profile-options">
+              <div class="dn-logout-options">
+                <div class="logout-btn" >Log Out</div>
+                <i style="padding-left:16px;" class="fa fa-sign-out" aria-hidden="true"></i>
+              </div>
+          </div>
         </div>
       </div>
     </header>
@@ -65,9 +94,14 @@
               </div>
             </div>
 
-            <form class="login-form" >
+            <form class="login-form">
               <div class="input-field">
-                <input type="text" class="email" placeholder="Enter your email" required />
+                <input
+                  type="text"
+                  class="email"
+                  placeholder="Enter your email"
+                  required
+                />
                 <i class="uil uil-envelope icon"></i>
               </div>
               <div class="input-field">
@@ -84,14 +118,16 @@
               <div class="checkbox-text">
                 <div class="checkbox-content">
                   <input type="checkbox" id="logCheck" />
-                  <label for="logCheck" class="text dn-cursor-pointer">Remember me</label>
+                  <label for="logCheck" class="text dn-cursor-pointer"
+                    >Remember me</label
+                  >
                 </div>
 
                 <a href="#" class="text">Forgot password?</a>
               </div>
               <div class="form-msg"></div>
               <button type="submit" class="input-field button">
-                <span class="btn-text" >Login Now</span>
+                <span class="btn-text">Login Now</span>
               </button>
             </form>
 
@@ -115,11 +151,21 @@
             <div class="dn-display-flex dn-overflow-hidden">
               <form class="registration-form">
                 <div class="input-field">
-                  <input type="text" class="name" placeholder="Enter your name" required />
+                  <input
+                    type="text"
+                    class="name"
+                    placeholder="Enter your name"
+                    required
+                  />
                   <i class="uil uil-user"></i>
                 </div>
                 <div class="input-field">
-                  <input type="email" class="email" placeholder="Enter your email" required />
+                  <input
+                    type="email"
+                    class="email"
+                    placeholder="Enter your email"
+                    required
+                  />
                   <i class="uil uil-envelope icon"></i>
                 </div>
                 <div class="input-field">
@@ -144,23 +190,30 @@
                 <div class="checkbox-text">
                   <div class="checkbox-content">
                     <input type="checkbox" id="sigCheck" />
-                    <label for="sigCheck" class="text dn-cursor-pointer">Remember me</label>
+                    <label for="sigCheck" class="text dn-cursor-pointer"
+                      >Remember me</label
+                    >
                   </div>
                   <a href="#" class="text">Forgot password?</a>
                 </div>
                 <div class="form-msg"></div>
                 <button type="submit" class="input-field button">
-                  <span class="btn-text" >Register Now</span>
+                  <span class="btn-text">Register Now</span>
                 </button>
               </form>
-              <form class="otp-verification-form" >
+              <form class="otp-verification-form">
                 <div class="input-field">
-                  <input type="text" class="otp-input" placeholder="Enter OTP" required />
+                  <input
+                    type="text"
+                    class="otp-input"
+                    placeholder="Enter OTP"
+                    required
+                  />
                   <i class="uil uil-user"></i>
                 </div>
                 <div class="form-msg"></div>
                 <button type="submit" class="input-field button">
-                  <span class="btn-text" >Confirm OTP</span>
+                  <span class="btn-text">Confirm OTP</span>
                 </button>
               </form>
             </div>
@@ -175,13 +228,15 @@
         </div>
       </div>
     </section>
+
+    <!-- Top Donor -->
     <section>
       <div class="swiper mySwiper container">
         <div class="swiper-wrapper content">
           <div class="swiper-slide card">
             <div class="card-content">
               <div class="image">
-                <img src="imgaes/default-avatar.jpg" alt="Profile picture" />
+                <img src="images/default-avatar.jpg" alt="Profile picture" />
               </div>
               <div class="name-profession">
                 <span class="name">Raghvendra Gautam</span>
@@ -204,5 +259,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/main.js" defer></script>
     <script src="js/events.js"></script>
+    <script src="js/outsideClicksHandler.js"></script>
   </body>
 </html>

@@ -11,22 +11,30 @@ let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const cookieParser = require('cookie-parser')
+app.use(cookieParser());
 
-//Cookies management
-var cookieSession = require('cookie-session')
-app.use(cookieSession({
-  name: 'session',
-  keys: [process.env.COOKIE_KEY],
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}))
+
+//Routes Handlers
+const loginHandler = require('./Routes/loginRoute');
+const isAuthenticatedRoute = require('./Routes/isAuthenticatedRoute');
+
 
 
 // CORS
 let cors = require("cors");
-app.use(cors({
-  origin: "http://localhost:5500",
+const whitelist = ['http://localhost:5500', 'https://localhost',"http://127.0.0.1:5500"]
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true
-}));
+}
+app.use(cors(corsOptions));
 
 //MONGOOSE
 const mongoose = require("mongoose");
@@ -142,15 +150,7 @@ app.get("/user/:email", (req, res) => {
   });
 });
 
-app.get("/topdonor", (req, res) => {
-  console.log("Donor",req.session);
-  if(!req.session.isAuthenticated){
-    res.json({
-      status: "Failed",
-      Message: "Un authenticated"
-    })
-  }
- else{
+app.get("/topdonor", async (req, res) => {
   USER_MODAL.find({}, (err, users) => {
     users.sort((donorA, donorB) => {
       if (donorA.daan > donorB.daan) return 1;
@@ -158,7 +158,6 @@ app.get("/topdonor", (req, res) => {
     });
     res.send(users.slice(-9).reverse());
   });
- }
 });
 
 app.post("/signup", (req, res) => {
@@ -215,53 +214,8 @@ app.post("/signup", (req, res) => {
     });
 });
 
-app.get('/auth', (req, res) => {
-  console.log(req.session.isAuthenticated)
-  req.session.isAuthenticated = true;
-  res.json({
-    status: "Authenticated",
-    message: "Authenticated"
-  })
-})
 
-app.post("/login", (req, res) => {
-  let { email, password } = req.body;
-  USER_MODAL.find({ email }, (err, docs) => {
-    if (err) {
-      console.log(err);
-      res.json({
-        status: "Failed",
-        message: "Something went wrong. Please try again..",
-      });
-    } else {
-      if (!docs.length) {
-        res.json({
-          status: "Failed",
-          message: "email not registered",
-        });
-      } else {
-        password = password.toString();
-        let hashedPassword = docs[0].password;
-        bcrypt.compare(password, hashedPassword, function (err, result) {
-          if (result) {
-            console.log("Prev",req.session);
-            req.session.isAuthenticated = true;
-            console.log("After",req.session);
-            res.json({
-              status: "Success",
-              message: "logged in successfully"
-            });
-          } else {
-            res.json({
-              status: "Failed",
-              message: "Wrong Password",
-            });
-          }
-        });
-      }
-    }
-  });
-});
+app.post("/login",loginHandler);
 
 app.post("/verify/otp", (req, res) => {
   console.log("Body", req.body);
@@ -330,6 +284,17 @@ app.post("/verify/otp", (req, res) => {
       });
     });
 });
+
+app.get('/isAuthenticated', isAuthenticatedRoute);
+app.get('/logout', (req, res) => {
+  res.clearCookie("token",{
+      secure: true,
+     httpOnly: true,
+     sameSite: 'none'
+      });
+   res.status(200).send("Logged out successfully");
+})
+
 //SERVER
 app.listen(PORT, () => {
   console.log(`Server succesfully started at port: ${PORT}`);

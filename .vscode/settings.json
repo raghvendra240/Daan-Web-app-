@@ -1,5 +1,11 @@
 {
-    "cSpell.words": [
-        "Raghvendra"
-    ]
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.https": {
+    "enable": false,
+    "cert": "D:/lex/certs/localhost.pem",
+    "key": "D:/lex/certs/localhost.key",
+    "passphrase": "raghu"
+  }
 }
