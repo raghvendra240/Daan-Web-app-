@@ -5,6 +5,7 @@ function populateCardData(data) {
     if (index == 0) {
       elem.find(".name").text(user.firstName);
       elem.find(".profession").text(user.email);
+      elem.find('.dn-coins').text(user.daan);
     } else {
       let clonedCard = elem.clone();
       clonedCard.find(".name").text(user.firstName);
@@ -44,11 +45,13 @@ fetch("http://localhost:3000/topdonor", {
 // Check if the user is authenticated
 fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
   .then((response) => response.json())
-  .then((isAuthenticated) => {
-    if (isAuthenticated) {
+  .then((response) => {
+    if (response.isAuthenticated) {
       $(".registration-section").removeClass('visible');
       $(".dn-login-regsitration-forms").hide();
       $(".dn-user-profile").removeClass("dn-hidden");
+      $('.user-name').text(response.data.firstName);
+      $("#dn-loggedinuser-coins").text(response.data.daan);
     }
   })
   .catch((error) => {

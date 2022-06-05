@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
           let hashedPassword = docs[0].password;
           bcrypt.compare(password, hashedPassword, async function (err, result) {
             if (result) {
-              let token = await createToken(email);
+              let token = await createToken(docs[0]._id);
               res.cookie("token", token,{
                 secure: true,
                httpOnly: true,

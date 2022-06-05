@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Donation</title>
+    <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
+  </head>
+  <body>
+    <!-- <div class="dn-hero-container">
+        <img src="/images/do_something_great.jpg" alt="">
+    </div> -->
+    <div class="dn-header">
+      <h1><span>Fill Details of your items</span></h1>
+    </div>
+
+    <div class="dn-form-container">
+      <div class="dn-form">
+        <div class="dn-product-details">
+          <h2>Enter Details of Item</h2>
+          <div class="dn-category-container">
+            <div class="dn-category">
+              <div class="dn-dropdown">
+                <label for="dn-category">Item Category *</label>
+                <div class="dn-dropdown-container">
+                  <select name="" id="dn-category">
+                    <option value=""></option>
+                    <option value="electronics">Electronics</option>
+                    <option value="Stationary">Stationary</option>
+                    <option value="household-items">Household items</option>
+                    <option value="kitchen-items">Kitchen Utensils</option>
+                    <option value="cloths">Cloths</option>
+                    <option value="electrical">Electrical</option>
+                    <option value="other">Other..</option>
+                  </select>
+                  <div class="dn-dropdown-icons">
+                    <div class="green-tick-icon">
+                      <img
+                        src="/images/check-mark.svg"
+                        width="16px"
+                        height="16px"
+                        alt=""
+                      />
+                    </div>
+                    <div class="chevron-down-icon">
+                      <img
+                        src="/images/checvron-down.svg"
+                        width="16px"
+                        height="16px"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dn-category">
+              <div class="dn-dropdown">
+                <label for="dn-sub-category">Item Category *</label>
+                <div class="dn-dropdown-container">
+                  <select name="" id="dn-sub-category">
+                    <option value=""></option>
+                    <option value="electronics">Electronics</option>
+                    <option value="Stationary">Stationary</option>
+                    <option value="household-items">Household items</option>
+                    <option value="kitchen-items">Kitchen Utensils</option>
+                    <option value="cloths">Cloths</option>
+                    <option value="electrical">Electrical</option>
+                    <option value="other">Other..</option>
+                  </select>
+                  <div class="dn-dropdown-icons">
+                    <div class="green-tick-icon">
+                      <img
+                        src="/images/check-mark.svg"
+                        width="16px"
+                        height="16px"
+                        alt=""
+                      />
+                    </div>
+                    <div class="chevron-down-icon">
+                      <img
+                        src="/images/checvron-down.svg"
+                        width="16px"
+                        height="16px"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dn-subcategory"></div>
+          </div>
+          <div class="dn-item-title">
+            <div class="dn-input-container">
+              <label for="dn-item-description">Title *</label>
+              <div class="dn-input">
+                <div id="dn-item-title">
+                  <input
+                    type="text"
+                    name=""
+                    id="dn-item-title"
+                    class="dn-item-title"
+                  />
+                  <div class="dn-icons">
+                    <div class="green-tick-icon">
+                      <img
+                        src="/images/check-mark.svg"
+                        width="16px"
+                        height="16px"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dn-item-description">
+            <label for="dn-item-description">Description *</label>
+            <div id="dn-item-description" class="text-area-container">
+              <textarea
+                autocomplete="off"
+                data-aut-id=""
+                maxlength="4096"
+                name="description"
+                placeholder="Enter description"
+                style="height: 96px"
+                spellcheck="false"
+              ></textarea>
+              <div class="dn-icons">
+                <div class="green-tick-icon">
+                  <img
+                    src="/images/check-mark.svg"
+                    width="16px"
+                    height="16px"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div class="dn-textarea-footer"></div>
+            </div>
+          </div>
+          <div class="dn-images-container">
+            <h2 style="text-transform: upperCase">Add Upto 5 Images</h2>
+            <form id="image-form" enctype="multipart/form-data">
+              <div class="dn-image-selector">
+                <label class="dn-image-label" for="img0">
+                  <div class="dn-input-wrapper">
+                    <div class="dn-input-title">Add Photo</div>
+                    <input
+                      type="file"
+                      data-image-index="0"
+                      id="img0"
+                      name="images"
+                      accept="image/*"
+                    />
+                    <i class="fa fa-2x fa-camera"></i>
+                    <br />
+                  </div>
+                </label>
+                <div class="dn-postupload-wrapper">
+                  <img width="95px" height="95px" src="" alt="" />
+                  <div class="dn-postupload-buttons">
+                    <button>Remove</button>
+                    <button>Replace</button>
+                  </div>
+                </div>
+              </div>
+              <div class="dn-image-selector">
+                <label class="dn-image-label" for="img1">
+                  <div class="dn-input-wrapper">
+                    <div class="dn-input-title">Add Photo</div>
+                    <input
+                      type="file"
+                      data-image-index="1"
+                      id="img1"
+                      name="images"
+                      accept="image/*"
+                    />
+                    <i class="fa fa-2x fa-camera"></i>
+                    <br />
+                  </div>
+                </label>
+                <div class="dn-postupload-wrapper">
+                  <img width="95px" height="95px" src="" alt="" />
+                  <div class="dn-postupload-buttons">
+                    <button>Remove</button>
+                    <button>Replace</button>
+                  </div>
+                </div>
+              </div>
+              <div class="dn-image-selector">
+                <label class="dn-image-label" for="img2">
+                  <div class="dn-input-wrapper">
+                    <div class="dn-input-title">Add Photo</div>
+                    <input
+                      type="file"
+                      data-image-index="2"
+                      id="img2"
+                      name="images"
+                      accept="image/*"
+                    />
+                    <i class="fa fa-2x fa-camera"></i>
+                    <br />
+                  </div>
+                </label>
+                <div class="dn-postupload-wrapper">
+                  <img width="95px" height="95px" src="" alt="" />
+                  <div class="dn-postupload-buttons">
+                    <button>Remove</button>
+                    <button>Replace</button>
+                  </div>
+                </div>
+              </div>
+              <div class="dn-image-selector">
+                <label class="dn-image-label" for="img3">
+                  <div class="dn-input-wrapper">
+                    <div class="dn-input-title">Add Photo</div>
+                    <input
+                      type="file"
+                      data-image-index="3"
+                      id="img3"
+                      name="images"
+                      accept="image/*"
+                    />
+                    <i class="fa fa-2x fa-camera"></i>
+                    <br />
+                  </div>
+                </label>
+                <div class="dn-postupload-wrapper">
+                  <img width="95px" height="95px" src="" alt="" />
+                  <div class="dn-postupload-buttons">
+                    <button>Remove</button>
+                    <button>Replace</button>
+                  </div>
+                </div>
+              </div>
+              <div class="dn-image-selector">
+                <label class="dn-image-label" for="img4">
+                  <div class="dn-input-wrapper">
+                    <div class="dn-input-title">Add Photo</div>
+                    <input
+                      type="file"
+                      data-image-index="4"
+                      id="img4"
+                      name="images"
+                      accept="image/*"
+                    />
+                    <i class="fa fa-2x fa-camera"></i>
+                    <br />
+                  </div>
+                </label>
+                <div class="dn-postupload-wrapper">
+                  <img width="95px" height="95px" src="" alt="" />
+                  <div class="dn-postupload-buttons">
+                    <button>Remove</button>
+                    <button>Replace</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="dn-submit-container">
+            <button class="btn-primary" id="dn-donateform-submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="../js/donationForm.js"></script>
+  </body>
+</html>

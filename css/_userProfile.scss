@@ -1,7 +1,9 @@
 .dn-user-profile{
+    margin-left: 30px;
     position: relative;
     display: flex;
     align-items: center;
+    gap: 25px;
     cursor: pointer;
     &.dn-hidden{
         display: none !important;
@@ -78,5 +80,28 @@
         }
     }
     
+}
+
+.dn-donate-now{
+    margin-left:30px
+}
+
+.dn-user-coins{
+    gap:5px;
+    align-items: center;
+    display: flex;
+    box-shadow: inset 0px -3px 7px #c1c1c1;
+    padding: 4px;
+    min-width: 91px;
+    height: fit-content;
+    border-radius: 26px;
+    background: white;
+    img{
+        height: 35px;
+        width: 35px;
+    }
+    .dn-coins{
+
+    }
 }
 

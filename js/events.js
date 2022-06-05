@@ -188,7 +188,7 @@ $('.dn-logout-options').click((event) => {
         withCredentials: true
     },
     success: function (data) {
-      console.log(data);
+      location.reload();
     },
     error: function (e) {
       console.log("Error", e);

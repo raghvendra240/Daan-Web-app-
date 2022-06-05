@@ -10,7 +10,10 @@ var bodyParser = require("body-parser");
 let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+let path = require("path");
+app.use("/uploads/donation", express.static(path.join(__dirname,'./uploads/donation')))
 
+//Cookies management
 const cookieParser = require('cookie-parser')
 app.use(cookieParser());
 
@@ -18,6 +21,8 @@ app.use(cookieParser());
 //Routes Handlers
 const loginHandler = require('./Routes/loginRoute');
 const isAuthenticatedRoute = require('./Routes/isAuthenticatedRoute');
+const donationRouteHandler = require('./Routes/donationRouteHandler');
+const updateProfileRouteHandler = require('./Routes/updateProfileRouteHandler');
 
 
 
@@ -53,13 +58,41 @@ const modals = require("./modals");
 const USER_MODAL = modals.userModal;
 //Verification modal
 const USER_VERIFICATION_MODAL = modals.userVerificationModal;
-
+//Donation modal
+const DONATION_MODAL = modals.donationModal;
 //Bcrypt
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 //Email sent function
 let sendMail = require("./services/emailService");
+
+//Multer
+const multer=require("multer");
+const fileStorageEngine = multer.diskStorage({
+  destination:(req,file,cb)=>{
+     cb(null,"./uploads/donation");
+  },
+   filename:(req,file,cb)=>{
+     cb(null,Date.now()+"--"+ file.originalname);
+  },
+ });
+ const upload=multer({storage:fileStorageEngine});
+
+ //Authentication check middleware
+ let getTokenData = require("./services/JwtToken").getTokenData;
+ function checkUserAuthentication(req, res, next){
+  getTokenData(req.cookies.token).then((response)=>{
+    if(response.isAuthenticated){
+      next();
+    }else{
+      res.status(403).json({
+        status:"Failed",
+        message:"Please login first"
+      })
+    }
+  })
+ }
 
 //ROUTES
 app.get("/", (req, res) => {  
@@ -292,8 +325,14 @@ app.get('/logout', (req, res) => {
      httpOnly: true,
      sameSite: 'none'
       });
-   res.status(200).send("Logged out successfully");
+   res.json({
+     status: "Success",
+     message: "Logged out successfully"
+   });
 })
+app.post('/upload/donation', upload.array("images",5),donationRouteHandler);
+
+app.patch("/updateProfile", checkUserAuthentication,upload.single("dp"), updateProfileRouteHandler);
 
 //SERVER
 app.listen(PORT, () => {
