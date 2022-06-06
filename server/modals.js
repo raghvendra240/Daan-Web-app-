@@ -7,7 +7,7 @@ let userSchema = new mongoose.Schema({
   gender: {type: String},
   daan: {type: Number, default: 1},
   isVerified: {type: Boolean, default: false},
-  phone: {type: Number},
+  phone: {type: String},
   avatarPath: {type: String},
   address: {
     country: { type: String, required: true},
@@ -33,6 +33,7 @@ let donationSchema = new mongoose.Schema({
   itemSubCategory: { type: String},
   itemDescription: { type: String, required: true},
   images: [{ type: String}],
+  createdAt: { type: Date, required: true},
   contactInfo: {  type: 'ObjectId', ref: "User" }
 
 })

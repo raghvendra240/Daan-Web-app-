@@ -12,7 +12,14 @@
         let $emailElement = $('#dn-email');
         $emailElement.val(result.data.email);
         $emailElement.prop('disabled', true);
-        $emailElement.css('cursor', 'not-allowed');
+        $emailElement.addClass('dn-disable-input');
+        $emailElement.removeClass('bg-light');
+        $("#dn-phone").val(result.data.phone);
+        $('#dn-country').val(result.data.address.country);
+        $('#dn-state').val(result.data.address.state);
+        $('#dn-city').val(result.data.address.city);
+        $('#dn-zipcode').val(result.data.address.zipcode);
+        $('#dn-address').val(result.data.address.streetAddress);
         $('.dn-profile-image').attr('src', "http://localhost:3000/"+result.data.avatarPath)
       }
   })();

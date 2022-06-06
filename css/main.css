@@ -473,6 +473,11 @@ label {
   display: block !important;
 }
 
+.dn-disable-input {
+  cursor: not-allowed;
+  background-color: #869099 !important;
+}
+
 .dn-profile-update-main .wrapper {
   padding: 30px 50px;
   border: 1px solid #ddd;
