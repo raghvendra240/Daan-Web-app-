@@ -195,3 +195,14 @@ $('.dn-logout-options').click((event) => {
     },
   });
 })
+
+//Contact now of product
+
+$('.doantion-card-wrapper').click(function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+  if($(event.target).hasClass('dn-product-contact')){
+    localStorage.setItem('dn-product-detail', $(event.target).closest('.container').find('.dn-product-detail').val());
+    location.href = "htmlPages/contactDonor.html"
+  }
+})

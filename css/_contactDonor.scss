@@ -1,0 +1,66 @@
+.carousel-control-prev , .carousel-control-next {
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    opacity: 0.5 !important;
+  }
+}
+.desciption-section {
+  margin-top: 50px;
+  margin-bottom: 70px;
+  .container{
+    width: 60%;
+    background: white;
+    margin: 16px 30px 0;
+    padding: 16px 24px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 3px #000000;
+  }
+  .dn-title {
+    font-size: 50px;
+    font-weight: bold;
+  }
+  .dn-category {
+    font-size: 18px;
+    color: gray;
+    font-family: monospace;
+  }
+
+  .dn-overview-container {
+    .dn-overview-title {
+      color: #406367;
+      font-size: 24px;
+      opacity: 0.8;
+      margin: 0;
+    }
+    .dn-overview-border{
+      margin: 16px -24px 14px;
+      border-bottom: 1px solid rgba(14,4,5,.2);
+    }
+
+    .overview-detail-container{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .dn-detail{
+        flex: 0 0 calc(33.33333% - 5.33333px);
+        display: flex;
+        margin: 10px 0;
+        .dn-detail-info{
+          padding-left: 12px;
+          .dn-info-title{
+            font-size: 14px;
+            line-height: 20px;
+            color: #002f34;
+            opacity: .74;
+          }
+          .dn-info-value{
+            font-size: 18px;
+            font-weight: 700;
+            color: #002f34;
+            line-height: 1.33;
+          }
+        }
+      }
+    }
+  }
+}

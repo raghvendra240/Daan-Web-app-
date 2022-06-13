@@ -330,9 +330,12 @@ app.get('/logout', (req, res) => {
      message: "Logged out successfully"
    });
 })
-app.post('/upload/donation', upload.array("images",5),donationRouteHandler);
+// console.log(donationRouteHandler)
+app.post('/donation', upload.array("images",5),donationRouteHandler.post);
 
 app.patch("/updateProfile", checkUserAuthentication,upload.single("dp"), updateProfileRouteHandler);
+
+app.get('/donation', donationRouteHandler.get)
 
 //SERVER
 app.listen(PORT, () => {

@@ -5,7 +5,7 @@ function populateCardData(data) {
     if (index == 0) {
       elem.find(".name").text(user.firstName);
       elem.find(".profession").text(user.email);
-      elem.find('.dn-coins').text(user.daan);
+      elem.find(".dn-coins").text(user.daan);
     } else {
       let clonedCard = elem.clone();
       clonedCard.find(".name").text(user.firstName);
@@ -47,10 +47,10 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
   .then((response) => response.json())
   .then((response) => {
     if (response.isAuthenticated) {
-      $(".registration-section").removeClass('visible');
+      $(".registration-section").removeClass("visible");
       $(".dn-login-regsitration-forms").hide();
       $(".dn-user-profile").removeClass("dn-hidden");
-      $('.user-name').text(response.data.firstName);
+      $(".user-name").text(response.data.firstName);
       $("#dn-loggedinuser-coins").text(response.data.daan);
     }
   })
@@ -59,4 +59,33 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
       "Something went wrong while getting the authentication information",
       error
     );
+  });
+
+fetch("http://localhost:3000/donation")
+  .then((response) => response.json())
+  .then((response) => {
+    let $parent = $('.doantion-card-wrapper');
+    let $template = $('.doantion-card-wrapper .container');
+    response.data.forEach((item,index) => {
+      if (index === 0) {
+        $templateCopy = $template;
+      }else{
+        $templateCopy = $template.clone();
+      }
+      let itemStr = JSON.stringify(item);
+      $templateCopy.find('.dn-product-detail').val(itemStr);
+      $templateCopy.find('.dn-product-title').text(item.itemTitle);
+      if(item.images.length > 0) {
+        console.log("http://localhost:3000/"+item.images[0]);
+        $templateCopy.find('.dn-product-image').attr("src", "http://localhost:3000/"+item.images[0]);
+      }else {
+        $templateCopy.find('.dn-product-image').attr("src", "");
+      }
+      let address = `${item.contactInfo.address.city} , ${item.contactInfo.address.state} - ${item.contactInfo.address.zipcode}`;
+      $templateCopy.find('.dn-product-address small').text(address);
+      $parent.append($templateCopy);
+    });
+    $parent.addClass('dn-visible');
+
+
   });
