@@ -1,7 +1,9 @@
 let productDetail = localStorage['dn-product-detail'];
-localStorage.removeItem( 'dn-product-detail' ); 
+// localStorage.removeItem( 'dn-product-detail'); 
+if(!productDetail){
+    window.location('/');
+}
 productDetail = JSON.parse(productDetail);
-console.log("🚀 ~ file: contactDonor.js ~ line 4 ~ productDetail", productDetail)
 let $parent = $('.carousel-inner');
 let $template = $parent.find('.carousel-item');
 
@@ -20,3 +22,8 @@ $('.dn-detail-info.donor .dn-info-value').text(`${productDetail.contactInfo.firs
 $('.dn-detail-info.location .dn-info-value').text(`${productDetail.contactInfo.address.city} , ${productDetail.contactInfo.address.state} - ${productDetail.contactInfo.address.zipcode}`);
 // $('.dn-detail-info.donation-date .dn-info-value').text();
 $('.dsecription-text').text(productDetail.itemDescription);
+
+$('.dn-chat-with-donor-btn').click(function(e) {
+    localStorage.setItem('donorId',productDetail.contactInfo._id);
+
+});

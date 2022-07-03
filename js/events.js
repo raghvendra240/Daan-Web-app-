@@ -156,6 +156,7 @@ $(".login-form").submit((event) => {
         $(".registration-section").removeClass('visible');
         $(".dn-login-regsitration-forms").hide();
         $(".dn-user-profile").removeClass("dn-hidden");
+        location.reload();
       } else {
         console.log("Error", data);
         $(".login-form .button").removeClass("btn-loading");

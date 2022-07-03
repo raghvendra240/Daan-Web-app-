@@ -50,8 +50,10 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
       $(".registration-section").removeClass("visible");
       $(".dn-login-regsitration-forms").hide();
       $(".dn-user-profile").removeClass("dn-hidden");
-      $(".user-name").text(response.data.firstName);
+      // $(".user-name").text(response.data.firstName);
       $("#dn-loggedinuser-coins").text(response.data.daan);
+      localStorage.setItem("userId", response.data._id);
+      localStorage.setItem("userEmail", response.data.email);
     }
   })
   .catch((error) => {

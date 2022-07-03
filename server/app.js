@@ -4,6 +4,9 @@ require("dotenv").config();
 //PORT
 const PORT = process.env.PORT || 3000;
 
+//
+require("events").EventEmitter.defaultMaxListeners = 0;
+
 //EXPRESS
 const express = require("express");
 var bodyParser = require("body-parser");
@@ -11,34 +14,38 @@ let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 let path = require("path");
-app.use("/uploads/donation", express.static(path.join(__dirname,'./uploads/donation')))
+app.use(
+  "/uploads/donation",
+  express.static(path.join(__dirname, "./uploads/donation"))
+);
 
 //Cookies management
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-
 //Routes Handlers
-const loginHandler = require('./Routes/loginRoute');
-const isAuthenticatedRoute = require('./Routes/isAuthenticatedRoute');
-const donationRouteHandler = require('./Routes/donationRouteHandler');
-const updateProfileRouteHandler = require('./Routes/updateProfileRouteHandler');
-
-
+const loginHandler = require("./Routes/loginRoute");
+const isAuthenticatedRoute = require("./Routes/isAuthenticatedRoute");
+const donationRouteHandler = require("./Routes/donationRouteHandler");
+const updateProfileRouteHandler = require("./Routes/updateProfileRouteHandler");
 
 // CORS
 let cors = require("cors");
-const whitelist = ['http://localhost:5500', 'https://localhost',"http://127.0.0.1:5500"]
+const whitelist = [
+  "http://localhost:5500",
+  "https://localhost",
+  "http://127.0.0.1:5500",
+];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
-}
+  credentials: true,
+};
 app.use(cors(corsOptions));
 
 //MONGOOSE
@@ -60,6 +67,10 @@ const USER_MODAL = modals.userModal;
 const USER_VERIFICATION_MODAL = modals.userVerificationModal;
 //Donation modal
 const DONATION_MODAL = modals.donationModal;
+//GroupChat modal
+const GROUP_CHAT_MODAL = modals.groupChatModal;
+const CONVERSATION_MODAL = modals.conversationModal;
+const MESSAGE_MODAL = modals.messageModal;
 //Bcrypt
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -68,34 +79,34 @@ const saltRounds = 10;
 let sendMail = require("./services/emailService");
 
 //Multer
-const multer=require("multer");
+const multer = require("multer");
 const fileStorageEngine = multer.diskStorage({
-  destination:(req,file,cb)=>{
-     cb(null,"./uploads/donation");
+  destination: (req, file, cb) => {
+    cb(null, "./uploads/donation");
   },
-   filename:(req,file,cb)=>{
-     cb(null,Date.now()+"--"+ file.originalname);
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "--" + file.originalname);
   },
- });
- const upload=multer({storage:fileStorageEngine});
+});
+const upload = multer({ storage: fileStorageEngine });
 
- //Authentication check middleware
- let getTokenData = require("./services/JwtToken").getTokenData;
- function checkUserAuthentication(req, res, next){
-  getTokenData(req.cookies.token).then((response)=>{
-    if(response.isAuthenticated){
+//Authentication check middleware
+let getTokenData = require("./services/JwtToken").getTokenData;
+function checkUserAuthentication(req, res, next) {
+  getTokenData(req.cookies.token).then((response) => {
+    if (response.isAuthenticated) {
       next();
-    }else{
+    } else {
       res.status(403).json({
-        status:"Failed",
-        message:"Please login first"
-      })
+        status: "Failed",
+        message: "Please login first",
+      });
     }
-  })
- }
+  });
+}
 
 //ROUTES
-app.get("/", (req, res) => {  
+app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 
@@ -176,8 +187,12 @@ app.get("/users", (req, res) => {
   });
 });
 
-app.get("/user/:email", (req, res) => {
-  USER_MODAL.find({ email: req.params.email }, (err, user) => {
+app.get("/user/:userIdentifier", (req, res) => {
+  let type = "_id";
+  if(req.params.userIdentifier.includes('@')){
+    type= "email"
+  }
+  USER_MODAL.find({ [type]: req.params.userIdentifier }, (err, user) => {
     if (!err) res.send(user);
     else res.send("No records found..");
   });
@@ -247,8 +262,7 @@ app.post("/signup", (req, res) => {
     });
 });
 
-
-app.post("/login",loginHandler);
+app.post("/login", loginHandler);
 
 app.post("/verify/otp", (req, res) => {
   console.log("Body", req.body);
@@ -285,10 +299,7 @@ app.post("/verify/otp", (req, res) => {
                 });
               }
               USER_VERIFICATION_MODAL.deleteOne({ userId: _id });
-              USER_MODAL.updateOne(
-                { _id: _id },
-                { isVerified: true },
-              );
+              USER_MODAL.updateOne({ _id: _id }, { isVerified: true });
               res.json({
                 status: "Success",
                 message: "OTP verified now login",
@@ -318,26 +329,127 @@ app.post("/verify/otp", (req, res) => {
     });
 });
 
-app.get('/isAuthenticated', isAuthenticatedRoute);
-app.get('/logout', (req, res) => {
-  res.clearCookie("token",{
-      secure: true,
-     httpOnly: true,
-     sameSite: 'none'
-      });
-   res.json({
-     status: "Success",
-     message: "Logged out successfully"
-   });
-})
-// console.log(donationRouteHandler)
-app.post('/donation', upload.array("images",5),donationRouteHandler.post);
+app.get("/isAuthenticated", isAuthenticatedRoute);
+app.get("/logout", (req, res) => {
+  res.clearCookie("token", {
+    secure: true,
+    httpOnly: true,
+    sameSite: "none",
+  });
+  res.json({
+    status: "Success",
+    message: "Logged out successfully",
+  });
+});
 
-app.patch("/updateProfile", checkUserAuthentication,upload.single("dp"), updateProfileRouteHandler);
+app.post("/donation", upload.array("images", 5), donationRouteHandler.post);
 
-app.get('/donation', donationRouteHandler.get)
+app.patch(
+  "/updateProfile",
+  checkUserAuthentication,
+  upload.single("dp"),
+  updateProfileRouteHandler
+);
+
+app.get("/donation", donationRouteHandler.get);
+
+app.get("/groupchat", async (req, res) => {
+  let data = await GROUP_CHAT_MODAL.find().populate("senderUserId");
+  res.status(200).json({
+    status: "OK",
+    data: data,
+  });
+});
+
+app.post("/conversation", async (req, res) => {
+  if (!req.body.senderUserId || !req.body.receiverUserId) {
+    res.status(404).json({
+      message: "Please check your senderUserID and receiverUserId",
+    });
+  }
+
+  const newConversation = new CONVERSATION_MODAL({
+    members: [req.body.senderUserId, req.body.receiverUserId],
+  });
+
+  try {
+    let savedConversation = await newConversation.save();
+    res.status(200).json(savedConversation);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+app.get("/conversation/:userId", async (req, res) => {
+  try {
+    console.log(req.params.userId);
+     const conversation = await CONVERSATION_MODAL.find({
+      members: { $in: [String(req.params.userId)] },
+    });
+    res.status(200).json(conversation);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+/*  
+Creates a new messages
+req.body format :
+                      
+                  conversationId:"62c0103208aa2b3443fa4f0a"
+                  senderUserId:"789"
+                  text:"Hey"
+
+*/
+
+app.post("/messages", async (req, res) => {
+  const newMessage = new MESSAGE_MODAL(req.body);
+  try {
+    const savedMessage = await newMessage.save();
+    res.status(200).json(savedMessage);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+app.get("/messages/:conversationId", async (req, res) => {
+  try {
+    const messages = await MESSAGE_MODAL.find({
+      conversationId: req.params.conversationId,
+    });
+    res.status(200).json(messages);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 //SERVER
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server succesfully started at port: ${PORT}`);
+});
+
+//Initialize groupChat socket
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "https://localhost",
+  },
+});
+io.on("connection", (socket) => {
+  socket.on("sendMsg", function (msgObj) {
+    let newMsg = new GROUP_CHAT_MODAL({
+      senderUserId: msgObj.userId,
+      message: msgObj.msg,
+      date: msgObj.date,
+    });
+    newMsg.save();
+    USER_MODAL.find({ _id: msgObj.userId }, function (err, data) {
+      if (data.length > 0) {
+        socket.broadcast.emit("receivedMsg", {
+          userName: data[0].firstName,
+          msg: msgObj.msg,
+          date: msgObj.date,
+        });
+      }
+    });
+  });
 });

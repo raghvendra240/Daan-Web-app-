@@ -29,7 +29,6 @@ module.exports = async function sendMail({ _id, email }, res) {
     REDIRECT_URI
   );
   let OTP = generateOTP();
-  console.log("OTP", OTP);
   OAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
   try {
     // Generate the accessToken on the fly

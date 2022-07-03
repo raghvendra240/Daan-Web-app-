@@ -10,11 +10,11 @@ let userSchema = new mongoose.Schema({
   phone: {type: String},
   avatarPath: {type: String},
   address: {
-    country: { type: String, required: true},
+    country: { type: String},
     state: { type: String},
-    city: { type: String, required: true},
-    streetAddress: { type: String, required: true},
-    zipcode: { type: String, required: true}
+    city: { type: String},
+    streetAddress: { type: String,},
+    zipcode: { type: String,}
   }
 });
 
@@ -38,6 +38,60 @@ let donationSchema = new mongoose.Schema({
 
 })
 
+let groupChatSchema = new mongoose.Schema({
+  senderUserId: {type: 'ObjectId', ref: "User"},
+  message: { type: String, required: true},
+  date: { type: String, required: true},
+
+})
+
+let conversationSchema = new mongoose.Schema({
+  members: {type: Array}
+});
+let messageSchema = new mongoose.Schema({
+  conversationId: {type: String, required: true},
+  senderUserId: {type: String, required: true},
+  text: { type: String, required: true},
+});
+
 module.exports.userModal = mongoose.model("User", userSchema);
 module.exports.userVerificationModal = mongoose.model("UserVerification", userVerificationSchema);
 module.exports.donationModal = mongoose.model("Donation", donationSchema);
+module.exports.groupChatModal = mongoose.model("GroupChat", groupChatSchema);
+module.exports.conversationModal = mongoose.model("Conversation", conversationSchema);
+module.exports.messageModal = mongoose.model("Message", messageSchema);
+
+
+
+
+/*  
+Private Chat Modal --------------------------------
+
+const Conversation Schema=new mongoose.Schema(
+ {
+   members:{
+);
+   },
+      type:Array,
+ },
+ {timestamps:true}
+)}
+
+
+const MessageSchema =new mongoose.Schema({
+    conversationId:{
+      type:String,
+    },
+    sender:{
+      type:String,
+    },
+    text:{
+      type:String,
+   },
+                    
+      
+ },
+  {timestamps:true}
+
+});
+*/
