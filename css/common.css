@@ -29,3 +29,7 @@
 .dn-overflow-hidden{
     overflow: hidden;
 }
+
+.dn-hidden{
+    display: none;
+}

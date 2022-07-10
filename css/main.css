@@ -81,10 +81,6 @@
 }
 
 .dn-user-info .dn-profile-options {
-  border-top: 1px solid rgba(14, 4, 5, 0.2);
-}
-
-.dn-user-info .dn-logout-options {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -97,13 +93,14 @@
   height: 48px;
   cursor: pointer;
   font-size: 16px;
+  border-top: 1px solid rgba(14, 4, 5, 0.2);
 }
 
-.dn-user-info .dn-logout-options:hover {
+.dn-user-info .dn-profile-options:hover {
   background-color: #cbc9c9;
 }
 
-.dn-user-info .dn-logout-options .logout-logo {
+.dn-user-info .dn-profile-options .logout-logo {
   padding: 2px 0  16px;
 }
 
@@ -588,9 +585,6 @@ label {
   display: none;
   gap: 20px;
   padding: 30px 50px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -609,8 +603,8 @@ label {
 
 .doantion-card-wrapper .card {
   background-color: #c1e8ed;
-  width: 300px;
-  height: 420px;
+  width: 250px;
+  height: 350px;
   padding: 10px;
   border: 1px solid #eee;
 }
@@ -628,7 +622,7 @@ label {
   background: #fff;
   padding: 10px;
   border-radius: 5px;
-  height: 400px;
+  height: 330px;
 }
 
 .doantion-card-wrapper .heart {
@@ -673,8 +667,10 @@ label {
 }
 
 .doantion-card-wrapper .dn-product-image {
-  width: 240px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: 0 auto 2px auto;
 }
 
 .carousel-control-prev:hover,
@@ -1305,6 +1301,10 @@ header {
 .dn-search {
   width: 60%;
   margin: auto;
+}
+
+.dn-search input {
+  height: 36px;
 }
 
 /*

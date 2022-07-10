@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 module.exports = async (req, res) => {
-    console.log(req.session);
     let { email, password } = req.body;
     USER_MODAL.find({ email }, (err, docs) => {
       if (err) {
@@ -34,7 +33,8 @@ module.exports = async (req, res) => {
                 });
               res.json({
                 status: "Success",
-                message: "logged in successfully"
+                message: "logged in successfully",
+                userId: docs[0]._id,
               });
             } else {
               res.json({

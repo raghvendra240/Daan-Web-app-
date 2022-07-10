@@ -47,13 +47,15 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
   .then((response) => response.json())
   .then((response) => {
     if (response.isAuthenticated) {
-      $(".registration-section").removeClass("visible");
+      $('.unauthenticated-block').addClass("dn-hidden");
       $(".dn-login-regsitration-forms").hide();
-      $(".dn-user-profile").removeClass("dn-hidden");
-      // $(".user-name").text(response.data.firstName);
       $("#dn-loggedinuser-coins").text(response.data.daan);
-      localStorage.setItem("userId", response.data._id);
-      localStorage.setItem("userEmail", response.data.email);
+      $('.authenticated-block').removeClass("dn-hidden");
+      $('.dn-profile .user-name').text(`${response.data.firstName} ${response.data.lastName}`);
+      if(response.data.avatarPath){
+        $('.dn-user-profile .dn-user-image').attr('src', "http://localhost:3000/" + response.data.avatarPath);
+        $('.dn-profile-photo img').attr('src', "http://localhost:3000/" + response.data.avatarPath);
+      }
     }
   })
   .catch((error) => {

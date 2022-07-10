@@ -42,7 +42,9 @@
           </button>
         </div>
       </div>
-      <div class="dn-user dn-login-regsitration-forms dn-display-flex">
+      <div
+        class="dn-user dn-login-regsitration-forms dn-display-flex unauthenticated-block"
+      >
         <div class="">
           <button class="btn-primary" id="login-btn">
             <span>Login</span>
@@ -54,52 +56,66 @@
           </button>
         </div>
       </div>
-      <div class="dn-user-coins">
-        <img src="images/daan_coin_logo.png" alt="" />
-        <div class="dn-coins" id="dn-loggedinuser-coins">10</div>
-      </div>
-      <div class="dn-user-profile dn-hidden">
-        <div class="dn-display-flex">
-          <div>
-            <img class="dn-user-image" src="images/default-avatar.jpg" alt="" />
+      <div class="dn-display-flex authenticated-block dn-hidden">
+        <div class="dn-user-coins">
+          <img src="images/daan_coin_logo.png" alt="" />
+          <div class="dn-coins" id="dn-loggedinuser-coins">10</div>
+        </div>
+        <div class="dn-donate-now">
+          <button class="btn-secondary" id="signup-btn">
+            <span
+              ><a style="color: white" href="htmlPages/donationForm.html"
+                >Donate Now</a
+              ></span
+            >
+          </button>
+        </div>
+        <div class="dn-user-profile">
+          <div class="dn-display-flex">
+            <div>
+              <img
+                class="dn-user-image"
+                src="images/default-avatar.jpg"
+                alt=""
+              />
+            </div>
+            <div class="dn-dropdown-icon">
+              <i class="fa-solid fa-caret-down"></i>
+            </div>
           </div>
-          <div class="dn-dropdown-icon">
-            <i class="fa-solid fa-caret-down"></i>
+          <div class="dn-user-info">
+            <div class="dn-profile">
+              <div class="dn-profile-photo">
+                <img src="images/default-avatar.jpg" alt="" />
+              </div>
+              <div class="dn-user-intro">
+                <div class="hello">Hello,</div>
+                <div class="user-name"></div>
+                <a href="/htmlPages/profileUpdate.html">
+                  <div class="edit-profile">View and edit profile</div></a
+                >
+              </div>
+            </div>
+            <div class="dn-profile-options-container dn-showChat-btn">
+              <div class="dn-profile-options dn-showChat-btn">
+                <i
+                  style="padding-right: 16px"
+                  class="far fa-comment"
+                  aria-hidden="true"
+                ></i>
+                <div class="logout-btn">Show Chats</div>
+              </div>
+              <div class="dn-profile-options dn-logout-options">
+                <div class="logout-btn">Log Out</div>
+                <i
+                  style="padding-left: 16px"
+                  class="fa fa-sign-out"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="dn-user-info">
-          <div class="dn-profile">
-            <div class="dn-profile-photo">
-              <img src="images/default-avatar.jpg" alt="" />
-            </div>
-            <div class="dn-user-intro">
-              <div class="hello">Hello,</div>
-              <div class="user-name">Raghvendra Gautam</div>
-              <a href="/htmlPages/profileUpdate.html">
-                <div class="edit-profile">View and edit profile</div></a
-              >
-            </div>
-          </div>
-          <div class="dn-profile-options">
-            <div class="dn-logout-options">
-              <div class="logout-btn">Log Out</div>
-              <i
-                style="padding-left: 16px"
-                class="fa fa-sign-out"
-                aria-hidden="true"
-              ></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="dn-donate-now">
-        <button class="btn-secondary" id="signup-btn">
-          <span
-            ><a style="color: white" href="htmlPages/donationForm.html"
-              >Donate Now</a
-            ></span
-          >
-        </button>
       </div>
     </header>
     <section class="registration-section">
@@ -280,17 +296,28 @@
 
     <!-- Donation section -->
     <div class="doantion-card-wrapper">
-      <div class="container mt-5 mb-5 d-flex justify-content-center align-items-center">
-        <input class="dn-product-detail" type="text" hidden>
+      <div
+        class="container mt-5 mb-5 d-flex justify-content-center align-items-center"
+      >
+        <input class="dn-product-detail" type="text" hidden />
         <div class="card">
           <div class="inner-card">
             <img src="" class="dn-product-image img-fluid rounded" />
             <h3 class="dn-product-title"></h3>
-            <div style="display:flex;flex-direction:column;justify-content:space-between;height:34%;">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 34%;
+              "
+            >
               <div class="dn-product-address mt-2 px-2">
                 <small></small>
               </div>
-              <button class="dn-product-contact btn btn-primary px-3">Contact Now</button>
+              <button class="dn-product-contact btn btn-primary px-3">
+                Contact Now
+              </button>
             </div>
           </div>
         </div>
@@ -300,33 +327,120 @@
     <!-- Group chat section-->
     <div class="groupchat-container">
       <div class="dn-chat-wrapper dn-hide">
-        <div class="chat-header"><span>Chat With Donors around the world</span></div>
+        <div class="chat-header">
+          <span>Chat With Donors around the world</span>
+        </div>
         <div class="chat-messages">
-          <div  class="message">
-             <div class="dn-display-flex">
-                <div style="padding: 10px 5px 0 10px;">
-                  <img class="user-image" style="border-radius: 50%;" width="32px" height="32px" src="./images/default-avatar.jpg" alt="">
+          <div class="message">
+            <div class="dn-display-flex">
+              <div style="padding: 10px 5px 0 10px">
+                <img
+                  class="user-image"
+                  style="border-radius: 50%"
+                  width="32px"
+                  height="32px"
+                  src="./images/default-avatar.jpg"
+                  alt=""
+                />
+              </div>
+              <div style="margin: 14px 0 0 6px">
+                <div class="user-name"></div>
+                <div class="user-text-container">
+                  <div class="user-text"></div>
+                  <small class="user-msg-time"></small>
                 </div>
-                <div style="margin: 14px 0 0 6px;">
-                  <div class="user-name"></div>
-                  <div class="user-text-container">
-                    <div class="user-text"></div>
-                    <small class="user-msg-time"></small>
-                  </div>
-                </div>
-             </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="chat-input-container">
           <div class="chat-input-wrapper">
-            <div style="flex:1"> <input class="chat-input" type="text" name="" id="" placeholder="Write Message"></div>
-            <div class="send-msg-btn"><svg width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M21.158.222L2.568 11.815c-.8.498-.749 1.215.113 1.591l4.406 1.923 10.395-9.903c1.377-1.296 1.569-1.119.426.395L8.254 18.215v4.927c0 .953.5 1.141 1.113.418l4.473-5.282 5.055 2.207c.861.376 1.643-.092 1.736-1.04l1.81-18.404c.094-.949-.484-1.317-1.283-.819" id="send__a"></path></defs><use xlink:href="#send__a" fill-rule="evenodd"></use></svg></div>
+            <div style="flex: 1">
+              <input
+                class="chat-input"
+                type="text"
+                name=""
+                id=""
+                placeholder="Write Message"
+              />
+            </div>
+            <div class="send-msg-btn">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <defs>
+                  <path
+                    d="M21.158.222L2.568 11.815c-.8.498-.749 1.215.113 1.591l4.406 1.923 10.395-9.903c1.377-1.296 1.569-1.119.426.395L8.254 18.215v4.927c0 .953.5 1.141 1.113.418l4.473-5.282 5.055 2.207c.861.376 1.643-.092 1.736-1.04l1.81-18.404c.094-.949-.484-1.317-1.283-.819"
+                    id="send__a"
+                  ></path>
+                </defs>
+                <use xlink:href="#send__a" fill-rule="evenodd"></use>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
       <div class="dn-chat-opener">
-        <div width="32" height="30" class="dn-icon dn-icon-opener"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="30" viewBox="0 0 39 37" class="conversations-visitor-open-icon"><defs><path id="conversations-visitor-open-icon-path-10.019978990958997578" d="M31.4824242 24.6256121L31.4824242 0.501369697 0.476266667 0.501369697 0.476266667 24.6256121z"></path></defs><g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><g transform="translate(-1432 -977) translate(1415.723 959.455)"><g transform="translate(17 17)"><g transform="translate(6.333 .075)"><path fill="#ffffff" d="M30.594 4.773c-.314-1.943-1.486-3.113-3.374-3.38C27.174 1.382 22.576.5 15.36.5c-7.214 0-11.812.882-11.843.889-1.477.21-2.507.967-3.042 2.192a83.103 83.103 0 019.312-.503c6.994 0 11.647.804 12.33.93 3.079.462 5.22 2.598 5.738 5.728.224 1.02.932 4.606.932 8.887 0 2.292-.206 4.395-.428 6.002 1.22-.516 1.988-1.55 2.23-3.044.008-.037.893-3.814.893-8.415 0-4.6-.885-8.377-.89-8.394"></path></g><g fill="#ffffff" transform="translate(0 5.832)"><path d="M31.354 4.473c-.314-1.944-1.487-3.114-3.374-3.382-.046-.01-4.644-.89-11.859-.89-7.214 0-11.813.88-11.843.888-1.903.27-3.075 1.44-3.384 3.363C.884 4.489 0 8.266 0 12.867c0 4.6.884 8.377.889 8.393.314 1.944 1.486 3.114 3.374 3.382.037.007 3.02.578 7.933.801l2.928 5.072a1.151 1.151 0 001.994 0l2.929-5.071c4.913-.224 7.893-.794 7.918-.8 1.902-.27 3.075-1.44 3.384-3.363.01-.037.893-3.814.893-8.414 0-4.601-.884-8.378-.888-8.394"></path></g></g></g></g></svg></div>
-        <div width="20" height="20" class="dn-icon dn-close-icon dn-hide"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 19 18" class="conversations-visitor-close-icon"><g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><g fill="#ffffff" transform="translate(-927 -991) translate(900.277 962)"><g transform="translate(27 29)"><path d="M10.627 9.013l6.872 6.873.708.707-1.415 1.414-.707-.707-6.872-6.872L2.34 17.3l-.707.707L.22 16.593l.707-.707L7.8 9.013.946 2.161l-.707-.708L1.653.04l.707.707L9.213 7.6 16.066.746l.707-.707 1.414 1.414-.707.708-6.853 6.852z"></path></g></g></g></svg></div>
+        <div width="32" height="30" class="dn-icon dn-icon-opener">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="32"
+            height="30"
+            viewBox="0 0 39 37"
+            class="conversations-visitor-open-icon"
+          >
+            <defs>
+              <path
+                id="conversations-visitor-open-icon-path-10.019978990958997578"
+                d="M31.4824242 24.6256121L31.4824242 0.501369697 0.476266667 0.501369697 0.476266667 24.6256121z"
+              ></path>
+            </defs>
+            <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
+              <g transform="translate(-1432 -977) translate(1415.723 959.455)">
+                <g transform="translate(17 17)">
+                  <g transform="translate(6.333 .075)">
+                    <path
+                      fill="#ffffff"
+                      d="M30.594 4.773c-.314-1.943-1.486-3.113-3.374-3.38C27.174 1.382 22.576.5 15.36.5c-7.214 0-11.812.882-11.843.889-1.477.21-2.507.967-3.042 2.192a83.103 83.103 0 019.312-.503c6.994 0 11.647.804 12.33.93 3.079.462 5.22 2.598 5.738 5.728.224 1.02.932 4.606.932 8.887 0 2.292-.206 4.395-.428 6.002 1.22-.516 1.988-1.55 2.23-3.044.008-.037.893-3.814.893-8.415 0-4.6-.885-8.377-.89-8.394"
+                    ></path>
+                  </g>
+                  <g fill="#ffffff" transform="translate(0 5.832)">
+                    <path
+                      d="M31.354 4.473c-.314-1.944-1.487-3.114-3.374-3.382-.046-.01-4.644-.89-11.859-.89-7.214 0-11.813.88-11.843.888-1.903.27-3.075 1.44-3.384 3.363C.884 4.489 0 8.266 0 12.867c0 4.6.884 8.377.889 8.393.314 1.944 1.486 3.114 3.374 3.382.037.007 3.02.578 7.933.801l2.928 5.072a1.151 1.151 0 001.994 0l2.929-5.071c4.913-.224 7.893-.794 7.918-.8 1.902-.27 3.075-1.44 3.384-3.363.01-.037.893-3.814.893-8.414 0-4.601-.884-8.378-.888-8.394"
+                    ></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div width="20" height="20" class="dn-icon dn-close-icon dn-hide">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 19 18"
+            class="conversations-visitor-close-icon"
+          >
+            <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
+              <g
+                fill="#ffffff"
+                transform="translate(-927 -991) translate(900.277 962)"
+              >
+                <g transform="translate(27 29)">
+                  <path
+                    d="M10.627 9.013l6.872 6.873.708.707-1.415 1.414-.707-.707-6.872-6.872L2.34 17.3l-.707.707L.22 16.593l.707-.707L7.8 9.013.946 2.161l-.707-.708L1.653.04l.707.707L9.213 7.6 16.066.746l.707-.707 1.414 1.414-.707.708-6.853 6.852z"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
       </div>
     </div>
 

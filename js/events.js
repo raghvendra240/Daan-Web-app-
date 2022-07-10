@@ -156,6 +156,7 @@ $(".login-form").submit((event) => {
         $(".registration-section").removeClass('visible');
         $(".dn-login-regsitration-forms").hide();
         $(".dn-user-profile").removeClass("dn-hidden");
+        localStorage.setItem("userId", data.userId);
         location.reload();
       } else {
         console.log("Error", data);
@@ -189,6 +190,7 @@ $('.dn-logout-options').click((event) => {
         withCredentials: true
     },
     success: function (data) {
+      localStorage.removeItem("userId");
       location.reload();
     },
     error: function (e) {
@@ -196,6 +198,13 @@ $('.dn-logout-options').click((event) => {
     },
   });
 })
+
+//Open the chat
+$('.dn-showChat-btn').click(function (e) { 
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/htmlPages/privateChat.html";
+});
 
 //Contact now of product
 

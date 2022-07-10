@@ -61,9 +61,6 @@
         }
     }
     .dn-profile-options{
-        border-top: 1px solid rgba(14,4,5,.2);
-    }
-    .dn-logout-options{
         display: flex;
         align-items: center;
         padding: 0 16px;
@@ -72,6 +69,7 @@
         height: 48px;
         cursor: pointer;
         font-size: 16px;
+        border-top: 1px solid rgba(14,4,5,.2);
         &:hover {
             background-color: rgb(203, 201, 201);
         }

@@ -2,7 +2,6 @@
   display: none;
   gap: 20px;
   padding: 30px 50px;
-  justify-content: space-between;
   flex-wrap: wrap;
   &.dn-visible {
     display: flex;
@@ -13,8 +12,8 @@
 
   .card {
     background-color: #c1e8ed;
-    width: 300px;
-    height: 420px;
+    width: 250px;
+    height: 350px;
     padding: 10px;
     border: 1px solid #eee;
 
@@ -30,7 +29,7 @@
     background: #fff;
     padding: 10px;
     border-radius: 5px;
-    height: 400px;
+    height: 330px;
   }
 
   .heart {
@@ -64,7 +63,9 @@
     margin: 5px 0 0 0;
   }
   .dn-product-image{
-      width: 240px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
+      display: block;
+      margin: 0 auto 2px auto;
   }
 }
