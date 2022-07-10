@@ -1023,6 +1023,10 @@ body {
   margin-top: 20px;
 }
 
+.container {
+  margin-top: 20px;
+}
+
 .card {
   background: #fff;
   -webkit-transition: .5s;
@@ -1067,7 +1071,7 @@ body {
 }
 
 .people-list .chat-list li.active {
-  background: #efefef;
+  background: #a9a6a6;
 }
 
 .people-list .chat-list li .name {
@@ -1113,6 +1117,9 @@ body {
 .chat .chat-history {
   padding: 20px;
   border-bottom: 2px solid #fff;
+  height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  overflow: auto;
 }
 
 .chat .chat-history ul {
@@ -1277,7 +1284,11 @@ body {
   }
 }
 
-.dn-chat-user:first-of-type {
+.msg-input.error {
+  border-color: red;
+}
+
+.chat-template-container, .chat-user-template-container {
   display: none;
 }
 

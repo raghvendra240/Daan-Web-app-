@@ -46,12 +46,14 @@ let groupChatSchema = new mongoose.Schema({
 })
 
 let conversationSchema = new mongoose.Schema({
-  members: {type: Array}
+  members: {type: Array},
+  lastUpdated: { type: String},
 });
 let messageSchema = new mongoose.Schema({
   conversationId: {type: String, required: true},
   senderUserId: {type: String, required: true},
   text: { type: String, required: true},
+  time: {type: String}
 });
 
 module.exports.userModal = mongoose.model("User", userSchema);

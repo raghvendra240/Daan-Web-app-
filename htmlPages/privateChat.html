@@ -24,13 +24,6 @@
                     <input type="text" class="form-control" placeholder="Search...">
                 </div>
                 <ul class="list-unstyled chat-list mt-2 mb-0 dn-chat-users-container">
-                    <li class="clearfix dn-chat-user">
-                        <img  class="donor-image" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                        <div class="about">
-                            <div class="name donor-name">Anonymous</div>
-                            <!-- <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>                                             -->
-                        </div>
-                    </li>
                 </ul>
             </div>
             <div class="chat">
@@ -52,34 +45,18 @@
                     </div>
                 </div>
                 <div class="chat-history">
+                    <div class="empty-chat" style="display: none;" >
+                        <h1 style="text-align: center;">Chat is empty</h1>
+                    </div>
                     <ul class="m-b-0 dn-chat-history">
-                        <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">10:10 AM, Today</span>
-                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"> -->
-                            </div>
-                            <div class="message  message-text"> Hi Aiden, how are you? How is the project coming along? </div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">10:12 AM, Today</span>
-                            </div>
-                            <div class="message my-message">Are we meeting today?</div>                                    
-                        </li>                               
-                        <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">10:15 AM, Today</span>
-                            </div>
-                            <div class="message my-message">Project has been already finished and I have results to show you.</div>
-                        </li>
                     </ul>
                 </div>
                 <div class="chat-message clearfix">
                     <div class="input-group mb-0">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-send"></i></span>
+                            <span class="submit-btn input-group-text"><i class="fa fa-send"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Message">                                    
+                        <input type="text" class="msg-input form-control" placeholder="Message">                                    
                     </div>
                 </div>
             </div>
@@ -87,7 +64,25 @@
     </div>
 </div>
 </div>
+<div class="chat-template-container">
+    <li class="clearfix">
+        <div class="message-data">
+            <span class="message-data-time"></span>
+        </div>
+        <div class="message  message-text"></div>
+    </li>
+</div>
+<div class="chat-user-template-container">
+    <li class="clearfix dn-chat-user">
+        <img  class="donor-image" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+        <div class="about">
+            <div class="name donor-name">Anonymous</div>
+            <!-- <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>                                             -->
+        </div>
+    </li>
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
- <script src="../js/privateChat.Js"></script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script> 
+<script src="../js/privateChat.Js"></script>
 </html>

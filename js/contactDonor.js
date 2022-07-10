@@ -25,5 +25,5 @@ $('.dsecription-text').text(productDetail.itemDescription);
 
 $('.dn-chat-with-donor-btn').click(function(e) {
     localStorage.setItem('donorId',productDetail.contactInfo._id);
-
+    window.location.href = "/htmlPages/privateChat.html"
 });

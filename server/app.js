@@ -370,6 +370,7 @@ app.post("/conversation", async (req, res) => {
 
   const newConversation = new CONVERSATION_MODAL({
     members: [req.body.senderUserId, req.body.receiverUserId],
+    lastUpdated:  Date.now(),
   });
 
   try {
@@ -434,8 +435,9 @@ const io = require("socket.io")(server, {
     origin: "https://localhost",
   },
 });
+
 io.on("connection", (socket) => {
-  socket.on("sendMsg", function (msgObj) {
+  socket.on("sendMsg", async function (msgObj) {
     let newMsg = new GROUP_CHAT_MODAL({
       senderUserId: msgObj.userId,
       message: msgObj.msg,
@@ -451,5 +453,16 @@ io.on("connection", (socket) => {
         });
       }
     });
+  });
+
+  socket.on("sendPrivateMsg", async function(msgObj) {
+    let currentTime = Date.now();
+    msgObj.time = currentTime;
+    let updateResult = await CONVERSATION_MODAL.updateOne({_id: msgObj.conversationId}, {lastUpdated: currentTime});
+    console.log(updateResult);
+    const newMessage = new MESSAGE_MODAL(msgObj);
+    let result = await newMessage.save();
+    socket.emit("receivePrivateMsg", result);
+    socket.broadcast.emit("receivePrivateMsg", result);
   });
 });
