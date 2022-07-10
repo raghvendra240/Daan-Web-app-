@@ -343,6 +343,9 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/donation", upload.array("images", 5), donationRouteHandler.post);
+app.get("/donation", donationRouteHandler.get);
+app.get("/donation/:userId", donationRouteHandler.get);
+app.delete("/donation/:donationId", donationRouteHandler.delete);
 
 app.patch(
   "/updateProfile",
@@ -351,7 +354,6 @@ app.patch(
   updateProfileRouteHandler
 );
 
-app.get("/donation", donationRouteHandler.get);
 
 app.get("/groupchat", async (req, res) => {
   let data = await GROUP_CHAT_MODAL.find().populate("senderUserId");

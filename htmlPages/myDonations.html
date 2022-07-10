@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Donations</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="my-donation-body">
+    <div class="donations-container">
+    </div>
+
+    <div class="donation-template dn-hidden">
+        <div class="donation">
+            <div class="donation-preview">
+                <h6 class="donation-title">Donation</h6>
+                <div class="donation-image-container">
+                    <img class="donation-image" src="../images/default-product_image.png" alt="">
+                </div>
+            </div>
+            <div class="donation-info">
+                <h2 class="donation-category">Category</h2>
+                <h6 class="donation-description">Description</h6>
+                <div class="btn-container">
+                    <button class="btn btn-edit">Edit</button>
+                    <button class="btn btn-delete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal-container dn-hidden">
+        <div class="confirmation-modal">
+            <div class="heading">
+                Delete Donation
+            </div>
+            <div class="content">
+                Are you sure you want to delete donation information
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-cancel">Cancel</button>
+                <button class="btn btn-delete-confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert dn-hidden delete-alert" role="alert"></div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="../js/myDonations.js"></script>
+</body>
+</html>

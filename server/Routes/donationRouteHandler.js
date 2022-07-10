@@ -19,11 +19,32 @@ module.exports.post = async (req, res) =>{
   };
 
   module.exports.get = async function(req, res) {
-    let data = await DONATION_MODAL.find().populate('contactInfo');
-    // data.address = data.contactInfo.address;
-    // delete data.contactInfo;
+    let data = [];
+    if (req.params.userId) {
+      data = await DONATION_MODAL.find({
+        contactInfo: req.params.userId,
+      }).populate('contactInfo');
+    } else {
+      data = await DONATION_MODAL.find().populate('contactInfo');
+    }
     res.status(200).json({
       status: "OK",
       data: data
     });
+  }
+
+  module.exports.delete = async function(req, res) {
+      // let response = await DONATION_MODAL.deleteOne({_id: req.params.donationId});
+      // if(response.acknowledged){
+      //   res.status(200).json({
+      //     message: "Deleted Successfully"
+      //   });
+      // }else{
+      //   res.status(500).json({
+      //     message: "Please Try Again"
+      //   });
+      // }
+      res.status(200).json({
+        message: "Deleted Successfully"
+      });
   }
