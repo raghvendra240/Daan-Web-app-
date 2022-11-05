@@ -43,6 +43,13 @@ $("body").on("click", function (event) {
     localStorage.setItem("toDeleteDonationId", donationId);
     $(".confirmation-modal-container").removeClass("dn-hidden");
   }
+
+  if ($(event.target).hasClass("btn-edit")) {
+    const $container = $(event.target).closest(".donation");
+    const donationId = $container.data("donation-id");
+    localStorage.setItem("toEditDonationId",donationId);
+    window.location.href = "/htmlPages/donationForm.html";
+  }
 });
 
 $(".btn-delete-confirm").click(async function (event) {

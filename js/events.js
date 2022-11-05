@@ -206,6 +206,13 @@ $('.dn-showChat-btn').click(function (e) {
   window.location.href = "/htmlPages/privateChat.html";
 });
 
+//Opens the donation page
+$('.dn-showdonation-btn').click(function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/htmlPages/myDonations.html";
+});
+
 //Contact now of product
 
 $('.doantion-card-wrapper').click(function (event) {

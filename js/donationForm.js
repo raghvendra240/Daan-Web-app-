@@ -1,3 +1,4 @@
+
 $("#dn-donateform-submit").click(async (event) => {
   event.preventDefault();
   event.stopPropagation();
@@ -53,3 +54,20 @@ $(".dn-postupload-buttons button").click(function(event) {
 
    }
 })
+
+async function fillData(donationId) {
+  const rawResponse = await fetch("http://localhost:3000/donation/bydonationid/"+ donationId);
+  let response = await rawResponse.json();
+  response = response.data[0];
+
+  $('#dn-item-title-input').val(response.itemTitle);
+  $('#dn-category').val(response.itemCategory);
+  $('#dn-sub-category').val(response.itemSubCategory);
+  $('textarea').val(response.itemDescription);
+}
+const donationId = localStorage.getItem('toEditDonationId');
+if(donationId) {
+  fillData(donationId);
+}
+
+
