@@ -1522,6 +1522,25 @@ header {
   font-size: 20px;
 }
 
+.close-btn {
+  background: white;
+  width: 40px;
+  height: 36px;
+  border: 3px solid #00B4CC;
+  text-align: center;
+  border-left: none;
+  line-height: 30px;
+}
+
+.close-btn i {
+  cursor: pointer;
+  color: white;
+  background: black;
+  border-radius: 50%;
+  padding: 2px 4px;
+  visibility: hidden;
+}
+
 /*Resize the wrap to see the search bar change!*/
 .wrap {
   /* width: 30%;

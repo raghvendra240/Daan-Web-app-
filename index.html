@@ -34,10 +34,11 @@
         <div class="search">
           <input
             type="text"
-            class="searchTerm"
+            class="searchTerm js-searchdonation-input"
             placeholder="What are you looking for?"
           />
-          <button type="submit" class="searchButton">
+          <div class="close-btn"><i class="js-clear-search fa fa-close"></i></div>
+          <button type="submit" class="searchButton js-searchdonation-btn" >
             <i class="fa fa-search"></i>
           </button>
         </div>
@@ -303,9 +304,10 @@
     </section>
 
     <!-- Donation section -->
+    <div style="font-size: 36px;text-decoration: underline;margin-left: 57px;">Recently added</div>
     <div class="doantion-card-wrapper">
       <div
-        class="container mt-5 mb-5 d-flex justify-content-center align-items-center"
+        class="single-card mt-5 mb-5 d-flex justify-content-center align-items-center"
       >
         <input class="dn-product-detail" type="text" hidden />
         <div class="card">
@@ -455,8 +457,8 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script src="js/main.js" defer></script>
-    <script src="js/events.js"></script>
+    <script type="module" src="js/main.js" defer></script>
+    <script type="module" src="js/events.js"></script>
     <script src="./js/groupChatFrontEnd.js"></script>
     <script src="js/outsideClicksHandler.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

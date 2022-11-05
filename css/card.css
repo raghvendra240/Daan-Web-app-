@@ -33,7 +33,7 @@ section{
   position: relative;
   background: #fff;
   border-radius: 20px;
-  margin: 20px 0;
+  margin: 0 0 10px 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 

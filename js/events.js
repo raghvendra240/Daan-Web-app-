@@ -1,3 +1,4 @@
+import {loadRecentDonations} from './main.js'
 function showLoginForm(event) {
   $(".registration-section").addClass("visible");
   $(".forms .login").show();
@@ -222,4 +223,44 @@ $('.doantion-card-wrapper').click(function (event) {
     localStorage.setItem('dn-product-detail', $(event.target).closest('.container').find('.dn-product-detail').val());
     location.href = "htmlPages/contactDonor.html"
   }
+})
+
+//Search bar
+let isSearchAlreadyApplied = false;
+function clearSearch() {
+  $(".js-searchdonation-input").val("");
+  isSearchAlreadyApplied = false;
+  loadRecentDonations("");
+  $('.js-clear-search').css('visibility','hidden');
+}
+function applySearch(searchText ="") {
+  if (searchText != "") {
+    isSearchAlreadyApplied = true;
+    loadRecentDonations(searchText);
+    $('.js-clear-search').css('visibility','visible');
+  } else {
+    $('.js-clear-search').css('visibility','hidden');
+    isSearchAlreadyApplied && clearSearch();
+  }
+}
+$('.js-searchdonation-btn').click((event) => {
+  let searchText = $('.js-searchdonation-input').val(); 
+  applySearch(searchText)
+});
+$(".js-searchdonation-input").keypress(function(event){
+  var keycode = (event.keyCode ? event.keyCode : event.which);
+	if(keycode == '13'){
+		let searchText = $(this).val();
+    applySearch(searchText);
+	}
+})
+$('.js-clear-search').click(function (e) { 
+  e.preventDefault();
+  clearSearch();
+});
+$(".js-searchdonation-input").focusout(function () {
+    let searchText = $(this).val();
+    if (searchText == "") {
+      applySearch();
+    }
 })

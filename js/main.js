@@ -65,31 +65,52 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
     );
   });
 
-fetch("http://localhost:3000/donation")
-  .then((response) => response.json())
-  .then((response) => {
-    let $parent = $('.doantion-card-wrapper');
-    let $template = $('.doantion-card-wrapper .container');
-    response.data.forEach((item,index) => {
-      if (index === 0) {
-        $templateCopy = $template;
-      }else{
-        $templateCopy = $template.clone();
-      }
-      let itemStr = JSON.stringify(item);
-      $templateCopy.find('.dn-product-detail').val(itemStr);
-      $templateCopy.find('.dn-product-title').text(item.itemTitle);
-      if(item.images.length > 0) {
-        console.log("http://localhost:3000/"+item.images[0]);
-        $templateCopy.find('.dn-product-image').attr("src", "http://localhost:3000/"+item.images[0]);
-      }else {
-        $templateCopy.find('.dn-product-image').attr("src", "");
-      }
-      let address = `${item.contactInfo.address.city} , ${item.contactInfo.address.state} - ${item.contactInfo.address.zipcode}`;
-      $templateCopy.find('.dn-product-address small').text(address);
-      $parent.append($templateCopy);
-    });
-    $parent.addClass('dn-visible');
+  function filterResult(data, searchText) {
+    data = data.filter ((donation) => {
+      return  donation.itemCategory.toLowerCase().indexOf(searchText) != -1 ||
+              donation.itemDescription.toLowerCase().indexOf(searchText) != -1 ||
+              donation.itemSubCategory.toLowerCase().indexOf(searchText) != -1 ||
+              donation.itemTitle.toLowerCase().indexOf(searchText) != -1 ||
+              false;
+    })
+    return data;
+  }
 
+  function loadRecentDonations(searchText) {
+    fetch("http://localhost:3000/donation")
+      .then((response) => response.json())
+      .then((response) => {
+        let $parent = $('.doantion-card-wrapper');
+        let $template = $('.doantion-card-wrapper .single-card').eq(0);
+        let $templateCopy
+        let data = response.data;
+        if (searchText) {
+          data = filterResult(data,searchText)
+          $parent.empty();
+        }
+        data.forEach((item,index) => {
+          if (index === 0) {
+            $templateCopy = $template;
+          }else{
+            $templateCopy = $template.clone();
+          }
+          let itemStr = JSON.stringify(item);
+          $templateCopy.find('.dn-product-detail').val(itemStr);
+          $templateCopy.find('.dn-product-title').text(item.itemTitle);
+          if(item.images.length > 0) {
+            console.log("http://localhost:3000/"+item.images[0]);
+            $templateCopy.find('.dn-product-image').attr("src", "http://localhost:3000/"+item.images[0]);
+          }else {
+            $templateCopy.find('.dn-product-image').attr("src", "");
+          }
+          let address = `${item.contactInfo.address.city} , ${item.contactInfo.address.state} - ${item.contactInfo.address.zipcode}`;
+          $templateCopy.find('.dn-product-address small').text(address);
+          $parent.append($templateCopy);
+        });
+        $parent.addClass('dn-visible');
+      });
 
-  });
+  }
+  loadRecentDonations();
+
+  export {loadRecentDonations}
