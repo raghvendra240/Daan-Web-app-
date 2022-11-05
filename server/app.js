@@ -77,7 +77,8 @@ const saltRounds = 10;
 
 //Email sent function
 let sendMail = require("./services/emailService");
-
+// Create token
+let createToken = require("./services/JwtToken").createToken;
 //Multer
 const multer = require("multer");
 const fileStorageEngine = multer.diskStorage({
@@ -271,8 +272,7 @@ app.post("/verify/otp", (req, res) => {
     .then((result) => {
       let { _id } = result[0];
       USER_VERIFICATION_MODAL.find({ userId: _id })
-        .then((result) => {
-          console.log("User verifcation", result);
+        .then(async (result) => {
           if (result.length) {
             let { expiresAt, OTP } = result[0];
             if (expiresAt < Date.now()) {
@@ -298,12 +298,26 @@ app.post("/verify/otp", (req, res) => {
                   message: "Wrong OTP",
                 });
               }
-              USER_VERIFICATION_MODAL.deleteOne({ userId: _id });
-              USER_MODAL.updateOne({ _id: _id }, { isVerified: true });
-              res.json({
-                status: "Success",
-                message: "OTP verified now login",
-              });
+              let updateResp = await USER_MODAL.updateOne({ _id: _id }, { isVerified: true });
+              if (updateResp.acknowledged){
+                let token = await createToken(_id);
+                USER_VERIFICATION_MODAL.deleteOne({ userId: _id });
+                res.cookie("token", token,{
+                  secure: true,
+                 httpOnly: true,
+                 sameSite: 'none'
+                  });
+                res.json({
+                  status: "Success",
+                  userId: _id,
+                  message: "OTP verified now login",
+                });
+              } else {
+                res.json({
+                  status: "Failed",
+                  message: "Please again later",
+                });
+              }
             }
           } else {
             res.json({

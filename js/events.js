@@ -62,6 +62,7 @@ $(".registration-form").submit((event) => {
 
   if (firstPassword != secondPassword) {
     showError("Password does not matched....");
+    $(".registration-form .button").removeClass("btn-loading");
     return;
   }
   let data = {
@@ -81,7 +82,6 @@ $(".registration-form").submit((event) => {
     success: function (data) {
       if ((data.status = "Success")) {
         localStorage.setItem("userEmail", data.data);
-        console.log("Success", data);
         $("#btnSubmit").prop("disabled", false);
         $(".registration-form .name").val("");
         $(".registration-form .password").val("");
@@ -93,13 +93,12 @@ $(".registration-form").submit((event) => {
           $(".registration-form").hide();
           $(".otp-verification-form").addClass("dn-visible");
           onSuccess("Please enter OTP send on you email");
-        }, 2000);
+        },100);
       } else {
         showError("Something went wrong. Please try again....");
       }
     },
     error: function (e) {
-      console.log("Error", e);
       $(".registration-form .button").removeClass("btn-loading");
       showError("Something went wrong. Please try again....");
     },
@@ -124,10 +123,15 @@ $(".otp-verification-form").submit((event) => {
     },
     data: data,
     success: function (data) {
-      console.log("OTP", data);
+     if(data.success || data.status == "Success") {
+        localStorage.setItem("userId", data.userId);
+        location.reload();
+     } else {
+        $(".registration-form .button").removeClass("btn-loading");
+        showError("Something went wrong. Please try again....");
+     }
     },
     error: function (e) {
-      console.log("Error", e);
       $(".registration-form .button").removeClass("btn-loading");
       showError("Something went wrong. Please try again....");
     },
