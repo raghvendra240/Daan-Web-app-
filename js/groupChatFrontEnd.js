@@ -47,7 +47,7 @@ let buildMsgDOM = function (msgObj) {
   let msgDate = formatAMPM(msgObj.date);
   $templateClone.find(".user-msg-time").text(msgDate);
   $parent.append($templateClone);
-  $parent.scrollTop($parent.height());
+  $parent.scrollTop($parent[0].scrollHeight);
 };
 
 let populateMessages = function (messages) {
@@ -92,6 +92,8 @@ $(".chat-input").keypress(function (e) {
 });
 
 socket.on("receivedMsg", function (msgObj) {
+  let audio = new Audio("../sounds/msg-notificaiton-sound.mp3");
+  audio.play();
   msgObj.msgType = "receive";
   buildMsgDOM(msgObj);
 });
