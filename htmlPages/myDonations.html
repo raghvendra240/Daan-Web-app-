@@ -25,22 +25,43 @@
                 <div class="btn-container">
                     <button class="btn btn-edit">Edit</button>
                     <button class="btn btn-delete">Delete</button>
+                    <button class="btn btn-donated">Donated</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="confirmation-modal-container dn-hidden">
+    <div class="confirmation-modal-container delete-modal dn-hidden">
         <div class="confirmation-modal">
             <div class="heading">
                 Delete Donation
             </div>
-            <div class="content">
-                Are you sure you want to delete donation information
+            <div class="dn-display-flex dn-column dn-halign-spacebetween">
+                <div class="content">
+                    Are you sure you want to delete donation information
+                </div>
+                <div class="btn-container">
+                    <button class="btn btn-cancel">Cancel</button>
+                    <button class="btn btn-delete-confirm">Delete</button>
+                </div>
             </div>
-            <div class="btn-container">
-                <button class="btn btn-cancel">Cancel</button>
-                <button class="btn btn-delete-confirm">Delete</button>
+        </div>
+    </div>
+    <div class="confirmation-modal-container donation-done-modal dn-hidden">
+        <div class="confirmation-modal">
+            <div class="heading dn-display-flex dn-valign-center">
+                <div>Great Work</div> 
+                <div class="dn-align-up-4"> &nbsp; &#128077;</div>
+            </div>
+            <div class="dn-display-flex dn-column dn-halign-spacebetween">
+                <div class="content">
+                   <div>Please Enter the Receiver's Email</div>
+                   <input id="receiver-email" class="receiver-email-input" type="email" placeholder="Email Id">
+                </div>
+                <div class="btn-container">
+                    <button class="btn btn-cancel">Cancel</button>
+                    <button class="btn btn-donated-confirm">Confirm</button>
+                </div>
             </div>
         </div>
     </div>

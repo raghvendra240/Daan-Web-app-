@@ -41,7 +41,7 @@ $("body").on("click", function (event) {
     const $container = $(event.target).closest(".donation");
     const donationId = $container.data("donation-id");
     localStorage.setItem("toDeleteDonationId", donationId);
-    $(".confirmation-modal-container").removeClass("dn-hidden");
+    $(".confirmation-modal-container.delete-modal").removeClass("dn-hidden");
   }
 
   if ($(event.target).hasClass("btn-edit")) {
@@ -49,6 +49,12 @@ $("body").on("click", function (event) {
     const donationId = $container.data("donation-id");
     localStorage.setItem("toEditDonationId",donationId);
     window.location.href = "/htmlPages/donationForm.html";
+  }
+  if ($(event.target).hasClass("btn-donated")) {
+    const $container = $(event.target).closest(".donation");
+    const donationId = $container.data("donation-id");
+    localStorage.setItem("CompletedDonationId",donationId);
+    $(".confirmation-modal-container.donation-done-modal").removeClass("dn-hidden");
   }
 });
 
@@ -74,6 +80,23 @@ $(".btn-delete-confirm").click(async function (event) {
 
 $(".btn-cancel").click(function () {
   localStorage.removeItem("toDeleteDonationId");
+  localStorage.removeItem("toEditDonationId");
+  localStorage.removeItem("CompletedDonationId");
   $(".confirmation-modal-container").addClass("dn-hidden");
+});
+
+$(".btn-donated-confirm").click( async (event) => {
+  event.stopPropagation();
+  const receiverEmailId = $('#receiver-email').value
+  const payload = {
+    donarEmailId: userId,
+    receiverEmailId: receiverEmailId,
+    donationId: localStorage.getItem("CompletedDonationId")
+  }
+  const response = await fetch('http://localhost:3000/donation/completed', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+  
 });
 

@@ -72,6 +72,13 @@
         &.btn-delete, &.btn-delete-confirm{
             background-color: #f21717;
         }
+        &.btn-donated {
+            background-color: #106105;
+        }
+        &.btn-donationpending {
+            background-color: #453e3e;
+            color: black;
+        }
     }
 
 }
@@ -102,7 +109,8 @@
     background: rgba(0,0,0,.8);
     .confirmation-modal{
         background: white;
-        height: 170px;
+        // height: 170px;
+        min-height: 170px;
         width: 523px;
         position: absolute;
         top: 38%;
@@ -123,8 +131,19 @@
             color: #555;
             display: inline-block
         }
+        .receiver-email-input {
+            margin-top: 12px;
+            width: 250px;
+            height: 40px;
+            border-radius: 3px;
+            padding: 6px 12px;
+        }
         .btn-container{
-           
+            margin-top: 30px;
+            text-align: right;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            position: unset;
         }
     }
 }

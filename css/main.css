@@ -1378,6 +1378,15 @@ body {
   background-color: #f21717;
 }
 
+.btn-container .btn.btn-donated {
+  background-color: #106105;
+}
+
+.btn-container .btn.btn-donationpending {
+  background-color: #453e3e;
+  color: black;
+}
+
 .donation-image-container {
   margin: 10px 10px 10px 0;
   border-radius: 10px;
@@ -1406,7 +1415,7 @@ body {
 
 .confirmation-modal-container .confirmation-modal {
   background: white;
-  height: 170px;
+  min-height: 170px;
   width: 523px;
   position: absolute;
   top: 38%;
@@ -1430,6 +1439,22 @@ body {
   margin: 0;
   color: #555;
   display: inline-block;
+}
+
+.confirmation-modal-container .confirmation-modal .receiver-email-input {
+  margin-top: 12px;
+  width: 250px;
+  height: 40px;
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+
+.confirmation-modal-container .confirmation-modal .btn-container {
+  margin-top: 30px;
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  position: unset;
 }
 
 .delete-alert {
@@ -1462,6 +1487,76 @@ body {
   .floating-btn {
     right: 10px;
   }
+}
+
+.dn-display-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dn-display-flex.dn-valign-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dn-display-flex.dn-column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dn-display-flex.dn-halign-spacebetween {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.dn-space-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.dn-display-none {
+  display: none !important;
+}
+
+.dn-cursor-pointer {
+  cursor: pointer;
+}
+
+.dn-cross-icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #7080af;
+  -webkit-clip-path: polygon(0 10%, 10% 0, 50% 40%, 89% 0, 100% 10%, 60% 50%, 100% 90%, 90% 100%, 50% 60%, 10% 100%, 0 89%, 40% 50%);
+          clip-path: polygon(0 10%, 10% 0, 50% 40%, 89% 0, 100% 10%, 60% 50%, 100% 90%, 90% 100%, 50% 60%, 10% 100%, 0 89%, 40% 50%);
+}
+
+.dn-error {
+  color: red;
+}
+
+.dn-success {
+  color: green;
+}
+
+.dn-overflow-hidden {
+  overflow: hidden;
+}
+
+.dn-hidden {
+  display: none;
+}
+
+.dn-align-up-4 {
+  position: relative;
+  top: -4px;
 }
 
 body {
