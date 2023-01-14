@@ -28,6 +28,7 @@ const loginHandler = require("./Routes/loginRoute");
 const isAuthenticatedRoute = require("./Routes/isAuthenticatedRoute");
 const donationRouteHandler = require("./Routes/donationRouteHandler");
 const updateProfileRouteHandler = require("./Routes/updateProfileRouteHandler");
+const singUpRouteHandler = require("./Routes/singUpRouteHandler");
 
 // CORS
 let cors = require("cors");
@@ -76,7 +77,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 //Email sent function
-let sendMail = require("./services/emailService");
+let sendMail = require("./services/sendOTPService");
 // Create token
 let createToken = require("./services/JwtToken").createToken;
 //Multer
@@ -209,59 +210,7 @@ app.get("/topdonor", async (req, res) => {
   });
 });
 
-app.post("/signup", (req, res) => {
-  let { firstName, lastName, email, password } = req.body;
-  password = password.toString();
-  //check duplicate email
-  USER_MODAL.find({ email })
-    .then((result) => {
-      if (result.length) {
-        res.json({
-          status: "Failed",
-          message: "User with same email already exists",
-        });
-      } else {
-        /* Register */
-        bcrypt
-          .hash(password, saltRounds)
-          .then((hashedPassword) => {
-            const newUser = new USER_MODAL({
-              firstName,
-              lastName,
-              email,
-              password: hashedPassword,
-              daan: 1,
-            });
-            newUser
-              .save()
-              .then((result) => {
-                //send OTP
-                sendMail(result, res);
-              })
-              .catch((err) => {
-                res.json({
-                  status: "Failed",
-                  message: "An error ocurred while creating user",
-                });
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.json({
-              status: "Failed",
-              message: "An error ocurred while generating hashed password",
-            });
-          });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json({
-        status: "Failed",
-        message: "An error ocurred while fetching email info",
-      });
-    });
-});
+app.post("/signup", singUpRouteHandler);
 
 app.post("/login", loginHandler);
 
