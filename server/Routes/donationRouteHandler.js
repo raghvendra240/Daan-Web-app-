@@ -1,5 +1,9 @@
-const DONATION_MODAL = require("../modals").donationModal;
+const modals = require("../modals");
+const DONATION_MODAL = modals.donationModal;
 let getTokenData = require("../services/JwtToken").getTokenData;
+const { v4: uuidv4 } = require("uuid");
+const USER_MODAL = modals.userModal;
+
 module.exports.post = async (req, res) => {
   let imagesPath = req.files.map((file) => file.path);
   let cookieData = await getTokenData(req.cookies.token);
@@ -50,3 +54,26 @@ module.exports.delete = async function (req, res) {
     message: "Deleted Successfully",
   });
 };
+
+module.exports.donationCompleted = async function (req, res) {
+  const uniqueKey = uuidv4();
+  const {receiverEmailId, donarId, donationId} = req.body;
+  try {
+    console.log(req.body);
+    const user = await USER_MODAL.find({ email: receiverEmailId });
+    if (user.length == 0) {
+      throw new Error("User not found");
+    }
+    const receiverId = user[0]._id;
+    await DONATION_MODAL.updateOne({_id : donationId}, { $set : {
+      receiverId : receiverId,
+      donationStatus: "pending",
+      uniqueKey: uniqueKey
+    }})
+    res.status(200).send("success");
+  } catch (error) {
+      res.status(404).send("Got error while setting donation status: " + error.message)
+  }
+
+}
+

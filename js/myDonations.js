@@ -78,25 +78,33 @@ $(".btn-delete-confirm").click(async function (event) {
   }, 2000);
 });
 
-$(".btn-cancel").click(function () {
+const closeModal = function () {
   localStorage.removeItem("toDeleteDonationId");
   localStorage.removeItem("toEditDonationId");
   localStorage.removeItem("CompletedDonationId");
   $(".confirmation-modal-container").addClass("dn-hidden");
-});
+}
+
+$(".btn-cancel").click(closeModal);
 
 $(".btn-donated-confirm").click( async (event) => {
   event.stopPropagation();
-  const receiverEmailId = $('#receiver-email').value
+  const receiverEmailId = $('#receiver-email').val();
   const payload = {
-    donarEmailId: userId,
+    donarId: userId,
     receiverEmailId: receiverEmailId,
     donationId: localStorage.getItem("CompletedDonationId")
   }
-  const response = await fetch('http://localhost:3000/donation/completed', {
-    method: 'POST',
-    body: JSON.stringify(payload)
-  })
-  
+  try {
+   const response = await $.ajax({
+      type: "POST",
+      url: "http://localhost:3000/donation/completed",
+      data: payload,
+    });
+    closeModal();
+  } catch (error) {
+      console.log(error);
+      closeModal();
+  }
 });
 

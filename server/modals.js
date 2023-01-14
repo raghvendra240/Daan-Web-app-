@@ -34,8 +34,10 @@ let donationSchema = new mongoose.Schema({
   itemDescription: { type: String, required: true},
   images: [{ type: String}],
   createdAt: { type: Date, required: true},
-  contactInfo: {  type: 'ObjectId', ref: "User" }
-
+  contactInfo: {  type: 'ObjectId', ref: "User" },
+  donationStatus: { type: String },
+  receiverId: { type: String },
+  uniqueKey: { type: String },
 })
 
 let groupChatSchema = new mongoose.Schema({
