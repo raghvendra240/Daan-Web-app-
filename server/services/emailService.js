@@ -1,9 +1,6 @@
 //Nodemailer
 const nodeMailer = require("nodemailer");
 
-//Google API
-const { google } = require("googleapis");
-
 //Unique string
 const { v4: uuidv4 } = require("uuid");
 
@@ -17,78 +14,70 @@ let generateOTP = require("./otpService");
 //User verification modal
 const USER_VERIFICATION_MODAL = require("../modals").userVerificationModal;
 
-module.exports = async function sendMail({ _id, email }, res) {
-  const CLIENT_EMAIL = process.env.EMAIL;
-  const CLIENT_ID = process.env.EMAIL_CLIENT_ID;
-  const CLIENT_SECRET = process.env.EMAIL_CLIENT_SECRET;
-  const REDIRECT_URI = process.env.EMAIL_CLIENT_REDIRECT_URI;
-  const REFRESH_TOKEN = process.env.EMAIL_REFRESH_TOKEN;
-  const OAuth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-  );
-  let OTP = generateOTP();
-  OAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-  try {
-    // Generate the accessToken on the fly
-    const accessToken = await OAuth2Client.getAccessToken();
-    // Create the email envelope (transport)
-    const transport = nodeMailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: CLIENT_EMAIL,
-        clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken,
-      },
-    });
+//get Access Token
+const getEmailTransporter = require('./getEmailTransporter');
 
-    // Create the email options and body
-    const mailOptions = {
-      from: CLIENT_EMAIL,
-      to: email,
+//Send Email service
+const sendEmail = require("./sendEmailService");
+
+module.exports = async function sendMail({ _id, email }, res) {
+  const OTP = generateOTP();
+  try {
+    const emailDetails = {
+      toEmail: email,
       subject: `Verify Your Email`,
-      html: `<p>Verify you email address to complete  the registration process.</p>
-        <p>Your OTP is</p>
+      body: `<p>Verify you email address to complete the registration process.</p>
+        <p>Your OTP is:</p>
         <h2>${OTP}</h2>`,
-    };
-    transport
-      .sendMail(mailOptions)
-      .then((result) => {
-        //Crete verification object
-        const newVerificationModal = new USER_VERIFICATION_MODAL({
-          userId: _id,
-          OTP: OTP,
-          createdAt: Date.now(),
-          expiresAt: Date.now() + 1800000,
-          verified: false,
-        });
-        newVerificationModal
-          .save()
-          .then((result) => {
-            res.json({
-              status: "Pending",
-              message: "Registration completed...Please verify your email",
-              data: email,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.json({
-              status: "Failed",
-              message: "Registration Failed. Please try again...",
-            });
-          });
-      })
-      .catch((err) => {
-        res.json({
-          status: "Failed",
-          message: "An error ocurred while sending Mail",
-        });
-      });
+    }
+    const sendEmailResponse = await sendEmail(emailDetails);
+    const newVerificationModal = new USER_VERIFICATION_MODAL({
+      userId: _id,
+      OTP: OTP,
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 1800000,
+      verified: false,
+    });
+    const saveNewVerificationResponse = await newVerificationModal.save();
+    res.json({
+      status: "Pending",
+      message: "Registration completed...Please verify your email",
+      data: email,
+    });
+    // transport
+    //   .sendMail(mailOptions)
+    //   .then((result) => {
+    //     //Crete verification object
+    //     const newVerificationModal = new USER_VERIFICATION_MODAL({
+    //       userId: _id,
+    //       OTP: OTP,
+    //       createdAt: Date.now(),
+    //       expiresAt: Date.now() + 1800000,
+    //       verified: false,
+    //     });
+    //     newVerificationModal
+    //       .save()
+    //       .then((result) => {
+    //         res.json({
+    //           status: "Pending",
+    //           message: "Registration completed...Please verify your email",
+    //           data: email,
+    //         });
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //         res.json({
+    //           status: "Failed",
+    //           message: "Registration Failed. Please try again...",
+    //         });
+    //       });
+    //   })
+    //   .catch((err) => {
+    //     res.json({
+    //       status: "Failed",
+    //       message: "An error ocurred while sending Mail",
+    //     });
+    //   });
   } catch (error) {
     console.log(error);
     res.json({
