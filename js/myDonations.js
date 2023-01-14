@@ -98,7 +98,7 @@ $(".btn-donated-confirm").click( async (event) => {
   try {
    const response = await $.ajax({
       type: "POST",
-      url: "http://localhost:3000/donation/completed",
+      url: "http://localhost:3000/donation/completed/send",
       data: payload,
     });
     closeModal();

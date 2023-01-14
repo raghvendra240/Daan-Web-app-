@@ -305,7 +305,8 @@ app.get("/logout", (req, res) => {
   });
 });
 
-app.post('/donation/completed', donationRouteHandler.donationCompleted);
+app.post('/donation/completed/send', donationRouteHandler.sendDonationCompletedMail);
+app.post('/donation/completed/verify', donationRouteHandler.verifyDonation);
 app.post("/donation", upload.array("images", 5), donationRouteHandler.post);
 app.get("/donation", donationRouteHandler.get);
 //fetch Donation by user

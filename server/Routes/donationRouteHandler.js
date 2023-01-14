@@ -3,7 +3,7 @@ const DONATION_MODAL = modals.donationModal;
 let getTokenData = require("../services/JwtToken").getTokenData;
 const { v4: uuidv4 } = require("uuid");
 const USER_MODAL = modals.userModal;
-
+const sendVerificationMail = require("../services/sendDonationVerificationMail");
 module.exports.post = async (req, res) => {
   let imagesPath = req.files.map((file) => file.path);
   let cookieData = await getTokenData(req.cookies.token);
@@ -55,7 +55,7 @@ module.exports.delete = async function (req, res) {
   });
 };
 
-module.exports.donationCompleted = async function (req, res) {
+module.exports.sendDonationCompletedMail = async function (req, res) {
   const uniqueKey = uuidv4();
   const {receiverEmailId, donarId, donationId} = req.body;
   try {
@@ -70,10 +70,30 @@ module.exports.donationCompleted = async function (req, res) {
       donationStatus: "pending",
       uniqueKey: uniqueKey
     }})
+    await sendVerificationMail({
+      toEmail: receiverEmailId,
+      uniqueKey: uniqueKey,
+
+    })
     res.status(200).send("success");
   } catch (error) {
       res.status(404).send("Got error while setting donation status: " + error.message)
   }
 
 }
+
+module.exports.verifyDonation = async function (req, res) {
+  const { receiverId, uniqueKey} = req.body;
+  try {
+    const item = await DONATION_MODAL.find({
+      uniqueKey : uniqueKey,
+      })
+    if (!item || item.length === 0 || item.receiverId !== receiverId) {
+        throw new Error('Unable to verify donation')
+    }
+    res.status(200).send("success");
+  } catch (error) {
+    res.status(401).send(error.message);
+  }
+} ;
 

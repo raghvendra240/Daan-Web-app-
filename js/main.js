@@ -32,6 +32,31 @@ function startSwiper() {
   });
 }
 
+async function handlerVerification () {
+  const verificationCode = localStorage.getItem('verificationCode');
+  const userId = localStorage.getItem('userId');
+  if (!verificationCode || !userId) {
+    return;
+  }
+  const payload = {
+    receiverId : userId,
+    uniqueKey: verificationCode
+  }
+  try {
+    const response = await $.ajax({
+       type: "POST",
+       url: "http://localhost:3000/donation/completed/verify",
+       data: payload,
+     });
+     if (response == 'success') {
+      
+     }
+   } catch (error) {
+       console.log(error);
+   }
+
+}
+
 fetch("http://localhost:3000/topdonor", {
   credentials: "include",
 })
@@ -56,6 +81,7 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
         $('.dn-user-profile .dn-user-image').attr('src', "http://localhost:3000/" + response.data.avatarPath);
         $('.dn-profile-photo img').attr('src', "http://localhost:3000/" + response.data.avatarPath);
       }
+      handlerVerification();
     }
   })
   .catch((error) => {
@@ -111,6 +137,18 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
       });
 
   }
+  function checkVerification() {
+    if (!window.location.search.length) {
+      return;
+    }
+    const queryParamsString = window.location.search.substr(1);
+    const key = queryParamsString.split("=")[0];
+    const value = decodeURIComponent(queryParamsString.split("=")[1]);
+    if (key == 'verification') {
+      localStorage.setItem('verificationCode', value);
+    }
+  }
+  checkVerification();
   loadRecentDonations();
 
   export {loadRecentDonations}
