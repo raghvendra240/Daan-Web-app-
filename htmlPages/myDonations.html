@@ -8,10 +8,18 @@
     <link rel="stylesheet" href="../css/main.css">
 </head>
 <body class="my-donation-body">
+    <div class="tabs-container">
+        <div class="tab dn-selected" onclick="openTab(event, 'new-donations')">New</div>
+        <div class="tab" onclick="openTab(event, 'donations-under-verification')">Under verification</div>
+        <div class="tab" onclick="openTab(event, 'donations-completed')">Donated</div>
+    </div>
     <div class="donations-container">
+        <div id="new-donations" class="tab-content tab-active"></div>
+        <div id="donations-under-verification" class="tab-content"></div>
+        <div id="donations-completed" class="tab-content"></div>
     </div>
 
-    <div class="donation-template dn-hidden">
+    <template class="donation-template">
         <div class="donation">
             <div class="donation-preview">
                 <h6 class="donation-title">Donation</h6>
@@ -29,7 +37,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 
     <div class="confirmation-modal-container delete-modal dn-hidden">
         <div class="confirmation-modal">

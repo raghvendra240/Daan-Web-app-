@@ -1,9 +1,9 @@
 let userId = localStorage.getItem("userId");
 
-function populateData(donationData) {
-  const $parentContainer = $(".donations-container");
-  const $template = $(".donation-template .donation");
-  const $templateClone = $template.clone();
+function populateData(donationData, containerID) {
+  const $parentContainer = $(`#${containerID}`);
+  const $template = $(".donation-template");
+  const $templateClone = $template.contents().clone();
   $templateClone.attr("data-donation-id", donationData._id);
   $templateClone.find(".donation-title").text(donationData.itemTitle);
   $templateClone.find(".donation-category").text(donationData.itemCategory);
@@ -15,6 +15,9 @@ function populateData(donationData) {
       .find(".donation-image")
       .attr("src", "http://localhost:3000/" + donationData.images[0]);
   }
+  if (containerID != 'new-donations') {
+    $templateClone.find('.btn-container').remove();
+  }
   $parentContainer.append($templateClone);
 }
 
@@ -23,10 +26,23 @@ async function fetchDonations() {
   const response = await rawResponse.json();
   const data = response.data;
   for (let donation of data) {
-    populateData(donation);
+    if (!donation.donationStatus) {
+      populateData(donation, 'new-donations');
+    } else if (donation.donationStatus == 1) {
+      populateData(donation, 'donations-under-verification');
+    } else {
+      populateData(donation, 'donations-completed');
+    }
   }
 }
 
+/* Tab functionality*/ 
+function openTab(event, tabId) {
+  $('.tab').removeClass('dn-selected');
+  $('.tab-content').removeClass('tab-active');
+  $(event.currentTarget).addClass('dn-selected');
+  $(`#${tabId}`).addClass('tab-active');
+}
 async function onload() {
   fetchDonations();
 }

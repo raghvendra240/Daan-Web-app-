@@ -1497,6 +1497,50 @@ body {
   }
 }
 
+.tab-content {
+  display: none;
+}
+
+.tab-content.tab-active {
+  display: block;
+}
+
+.tabs-container {
+  z-index: 100;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 40px;
+  width: 100%;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tabs-container .tab {
+  height: 100%;
+  padding: 5px 8px;
+  cursor: pointer;
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-right: none;
+  color: #888;
+  font-weight: 500;
+}
+
+.tabs-container .tab:hover {
+  background-color: #ddd;
+}
+
+.tabs-container .tab.dn-selected {
+  background-image: linear-gradient(45deg, #7175da, #9790F2);
+  color: white;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
 .dn-display-flex {
   display: -webkit-box;
   display: -ms-flexbox;
