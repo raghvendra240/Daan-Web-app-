@@ -68,7 +68,7 @@ module.exports.sendDonationCompletedMail = async function (req, res) {
     const receiverId = user[0]._id;
     await DONATION_MODAL.updateOne({_id : donationId}, { $set : {
       receiverId : receiverId,
-      donationStatus: "pending",
+      donationStatus: 1,
       uniqueKey: uniqueKey
     }})
     await sendVerificationMail({
@@ -86,13 +86,33 @@ module.exports.sendDonationCompletedMail = async function (req, res) {
 module.exports.verifyDonation = async function (req, res) {
   const { receiverId, uniqueKey} = req.body;
   try {
-    const item = await DONATION_MODAL.find({
+    const donationObj = await DONATION_MODAL.find({
       uniqueKey : uniqueKey,
       })
-    if (!item || item.length === 0 || item.receiverId !== receiverId) {
+    if (!donationObj || donationObj.length === 0 || donationObj[0].receiverId !== receiverId) {
         throw new Error('Unable to verify donation')
     }
-    res.status(200).send("success");
+    /* Already verified */
+    if (donationObj[0].donationStatus !== 1) {
+      throw new Error('Already verified');
+    }
+
+    const coins = donationObj[0].daanCoins;
+    const donorId = donationObj[0].contactInfo;
+    /* Update Receiver Coins */
+    const response = await USER_MODAL.findOneAndUpdate({_id : receiverId}, { $inc : {daan : -coins} }, {new: true})
+    /* Update Donor cons*/
+    await  USER_MODAL.findOneAndUpdate({_id : donorId}, { $inc : {daan : coins} })
+    /*Update donation Object*/
+    await DONATION_MODAL.findOneAndUpdate({_id : donationObj[0]._id}, {
+      $set : {
+        donationStatus: 2
+      }
+    });
+    res.status(200).send({
+      "status": "success",
+      "daanCoins": response.daan
+    });
   } catch (error) {
     res.status(401).send(error.message);
   }

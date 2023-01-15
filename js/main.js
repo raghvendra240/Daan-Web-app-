@@ -48,7 +48,9 @@ async function handlerVerification () {
        url: "http://localhost:3000/donation/completed/verify",
        data: payload,
      });
-     if (response == 'success') {
+     if (response.status == 'success') {
+        localStorage.removeItem('verificationCode');
+        $('#donation-verification-success-modal').find('.daan-coins').text(response.daanCoins);
         $('#donation-verification-success-modal').show();
      }
    } catch (error) {

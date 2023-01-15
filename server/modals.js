@@ -36,7 +36,7 @@ let donationSchema = new mongoose.Schema({
   images: [{ type: String}],
   createdAt: { type: Date, required: true},
   contactInfo: {  type: 'ObjectId', ref: "User" },
-  donationStatus: { type: String },
+  donationStatus: { type: Number, default : 0 },
   receiverId: { type: String },
   uniqueKey: { type: String },
 })

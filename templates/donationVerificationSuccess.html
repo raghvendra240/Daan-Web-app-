@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script>
+	function redirectToHome() {
+		alert(2);
+		window.location.href='https://localhost';
+	}
+</script>
 <div  id="donation-verification-success-modal" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
@@ -9,10 +15,10 @@
 				<h4 class="modal-title">Verification Done!</h4>	
 			</div>
 			<div class="modal-body">
-				<p class="text-center">Your Updated Daan Coins are:</p>
+				<p class="text-center">Your Updated Daan Coins are: <span class="daan-coins"></span></p>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-success btn-block dn-cursor-pointer" onclick="$('#donation-verification-success-modal').hide();">OK</button>
+				<button class="btn btn-success btn-block dn-cursor-pointer" onclick="window.location.href='https://localhost'">OK</button>
 			</div>
 		</div>
 	</div>
