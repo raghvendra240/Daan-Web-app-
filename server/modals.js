@@ -32,7 +32,7 @@ let donationSchema = new mongoose.Schema({
   itemCategory: { type: String, required: true},
   itemSubCategory: { type: String},
   itemDescription: { type: String, required: true},
-  daanCoins: { type: Integer, required: true},
+  daanCoins: { type: Number, required: true},
   images: [{ type: String}],
   createdAt: { type: Date, required: true},
   contactInfo: {  type: 'ObjectId', ref: "User" },
