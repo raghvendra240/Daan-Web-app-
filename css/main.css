@@ -1519,6 +1519,9 @@ body {
 }
 
 .tabs-container .tab {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   height: 100%;
   padding: 5px 8px;
   cursor: pointer;
@@ -1527,6 +1530,23 @@ body {
   border-right: none;
   color: #888;
   font-weight: 500;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 3px;
+  position: relative;
+  padding-right: 30px;
+}
+
+.tabs-container .tab .item-count {
+  font-size: 10px;
+  background-color: #2A265F;
+  color: white;
+  top: 2px;
+  padding: 4px;
+  position: absolute;
+  right: 2px;
+  border-radius: 30%;
 }
 
 .tabs-container .tab:hover {

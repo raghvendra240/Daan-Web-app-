@@ -194,6 +194,7 @@
     background-color: white;
     display: flex;
     .tab {
+        width: max-content;
         height: 100%;
         padding: 5px 8px;
         cursor: pointer;
@@ -202,6 +203,20 @@
         border-right: none;
         color: #888;
         font-weight: 500;
+        display: flex;
+        gap: 3px;
+        position: relative;
+        padding-right: 30px;
+        .item-count {
+            font-size: 10px;
+            background-color: #2A265F;
+            color: white;
+            top: 2px;
+            padding: 4px;
+            position: absolute;
+            right: 2px;
+            border-radius: 30%;
+        }
         &:hover {
             background-color: #ddd;
         }

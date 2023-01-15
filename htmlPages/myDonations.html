@@ -9,9 +9,18 @@
 </head>
 <body class="my-donation-body">
     <div class="tabs-container">
-        <div class="tab dn-selected" onclick="openTab(event, 'new-donations')">New</div>
-        <div class="tab" onclick="openTab(event, 'donations-under-verification')">Under verification</div>
-        <div class="tab" onclick="openTab(event, 'donations-completed')">Donated</div>
+        <div class="tab new-donations dn-selected" onclick="openTab(event, 'new-donations')">
+            <div>New</div>
+            <div class="item-count">0</div>
+        </div>
+        <div class="tab donations-under-verification" onclick="openTab(event, 'donations-under-verification')">
+            <div>Under verification</div>
+            <div class="item-count">0</div>
+        </div>
+        <div class="tab donations-completed" onclick="openTab(event, 'donations-completed')">
+            <div>Donated</div>
+            <div class="item-count">0</div>
+        </div>
     </div>
     <div class="donations-container">
         <div id="new-donations" class="tab-content tab-active"></div>

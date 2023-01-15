@@ -27,10 +27,16 @@ async function fetchDonations() {
   const data = response.data;
   for (let donation of data) {
     if (!donation.donationStatus) {
+      let count = $('.tab.new-donations .item-count').text() * 1;
+      $('.tab.new-donations .item-count').text(count + 1);
       populateData(donation, 'new-donations');
     } else if (donation.donationStatus == 1) {
+      let count = $('.tab.donations-under-verification .item-count').text() * 1;
+      $('.tab.donations-under-verification .item-count').text(count + 1);
       populateData(donation, 'donations-under-verification');
     } else {
+      let count = $('.tab.donations-completed .item-count').text() * 1;
+      $('.tab.donations-completed .item-count').text(count + 1);
       populateData(donation, 'donations-completed');
     }
   }
