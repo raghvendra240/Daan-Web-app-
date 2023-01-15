@@ -25,6 +25,16 @@ label{
   background: #fff;
   border: 1px solid rgba(14, 4, 5, 0.2);
   border-radius: 4px;
+  .dn-input-container {
+    .dn-input {
+      &.dn-width-10 {
+        width: 10%;
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 .dn-category-container {

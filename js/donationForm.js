@@ -8,10 +8,12 @@ $("#dn-donateform-submit").click(async (event) => {
   let subCategoryData = $("#dn-sub-category").val();
   let descriptionData = $("#dn-item-description textarea").val();
   let title = $("#dn-item-title-input").val();
+  let daanCoins = $("#dn-daan-coins-input").val();
   imageFormData.append("category", categoryData);
   imageFormData.append("subcategory", subCategoryData);
   imageFormData.append("description", descriptionData);
   imageFormData.append("title", title);
+  imageFormData.append("daanCoins", daanCoins);
   let response = await fetch("http://localhost:3000/donation", {
     credentials: "include",
     method: "POST",

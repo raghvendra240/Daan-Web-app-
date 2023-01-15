@@ -162,6 +162,14 @@ label {
   border-radius: 4px;
 }
 
+.dn-form-container .dn-input-container .dn-input.dn-width-10 {
+  width: 10%;
+}
+
+.dn-form-container .dn-input-container .dn-input.dn-width-10 input {
+  width: 100%;
+}
+
 .dn-category-container {
   display: -webkit-box;
   display: -ms-flexbox;
