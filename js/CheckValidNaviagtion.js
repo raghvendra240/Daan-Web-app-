@@ -6,7 +6,6 @@
       if(result.isAuthenticated == false) {
           window.location.replace('/');
       }else{
-          console.log(result);
         $('#dn-firstname').val(result.data.firstName);
         $('#dn-lastname').val(result.data.lastName);
         let $emailElement = $('#dn-email');
@@ -21,5 +20,6 @@
         $('#dn-zipcode').val(result.data.address.zipcode);
         $('#dn-address').val(result.data.address.streetAddress);
         $('.dn-profile-image').attr('src', "http://localhost:3000/"+result.data.avatarPath)
+        $(".dn-profile-update-main").show();
       }
   })();
