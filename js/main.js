@@ -49,7 +49,7 @@ async function handlerVerification () {
        data: payload,
      });
      if (response == 'success') {
-      
+        $('#donation-verification-success-modal').show();
      }
    } catch (error) {
        console.log(error);
