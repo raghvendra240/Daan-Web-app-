@@ -12,6 +12,7 @@ module.exports.post = async (req, res) => {
     itemDescription: req.body.description,
     itemCategory: req.body.category,
     itemSubCategory: req.body.subcategory,
+    daanCoins: req.body.daanCoins,
     images: imagesPath,
     createdAt: Date.now(),
     contactInfo: cookieData._id,
