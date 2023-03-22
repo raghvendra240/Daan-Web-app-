@@ -2,3 +2,4 @@ server/.env
 # Dependency directories
 server/node_modules/
 server/jspm_packages/
+.vscode

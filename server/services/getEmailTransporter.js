@@ -36,6 +36,7 @@ module.exports = async function () {
     });
     return transport;
   } catch (error) {
-    return undefined;
+    console.log("Error in getEmailTransporter: ", error)
+    return error;
   }
 }
