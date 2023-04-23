@@ -12,6 +12,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+      <script src="../js/commonDeclaration.js"></script>
   </head>
   <body>
     <div class="dn-profile-update-main dn-hidden">
@@ -123,9 +124,17 @@
               <textarea name="" class="bg-light form-control" id="dn-address" ></textarea>
             </div>
           </div>
+          <div class="message-conatiner">
+            <div class="alert alert-success js-alert-success dn-hidden" role="alert">
+              <strong>Success!</strong> Your profile has been updated.
+            </div>
+            <div class="alert alert-danger js-alert-error dn-hidden" role="alert">
+              <strong>Failed!</strong> Something went wrong.
+            </div>
+          </div>
           <div class="py-3 pb-4 border-bottom">
             <button id="dn-submit-btn" class="btn btn-primary mr-3">Save Changes</button>
-            <button class="btn border button" onclick="window.location.href='https://localhost'">Cancel</button>
+            <button class="btn border button" onclick="window.location.href=BASE_FE_URL">Close</button>
           </div>
         </div>
       </div>
