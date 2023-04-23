@@ -34,6 +34,7 @@ module.exports.get = async function (req, res) {
   } else {
     data = await DONATION_MODAL.find().populate("contactInfo");
   }
+  data = data.sort((a, b) => b.createdAt - a.createdAt);
   res.status(200).json({
     status: "OK",
     data: data,
