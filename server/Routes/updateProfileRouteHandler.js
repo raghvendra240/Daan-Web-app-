@@ -1,7 +1,6 @@
 let getTokenData = require("../services/JwtToken").getTokenData;
 const USER_MODAL = require("../modals").userModal;
 module.exports = async (req, res) => {
-    console.log(req.body);
     let avatarPath = req.file?.path
     let { _id} = await getTokenData(req.cookies.token);
     let { acknowledged} = await USER_MODAL.updateOne({_id: _id},{

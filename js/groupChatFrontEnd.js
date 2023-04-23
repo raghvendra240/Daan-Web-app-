@@ -1,19 +1,30 @@
 const socket = io("http://localhost:3000");
 
+let $parent = $(".chat-messages");
+let $template = $parent.find(".message");
+
+const scrollToBottom = () => {
+  $parent.scrollTop($parent[0].scrollHeight);
+};
+
 $(".dn-chat-opener").click((event) => {
   if ($(".dn-icon-opener").hasClass("dn-hide")) {
     //Chat is opened
     $(".dn-chat-wrapper").addClass("dn-hide");
     $(".dn-close-icon").addClass("dn-hide");
     $(".dn-icon-opener").removeClass("dn-hide");
+    
   } else {
     $(".dn-chat-wrapper").removeClass("dn-hide");
     $(".dn-close-icon").removeClass("dn-hide");
     $(".dn-icon-opener").addClass("dn-hide");
+    scrollToBottom();
   }
 });
-let $parent = $(".chat-messages");
-let $template = $parent.find(".message");
+
+$('.chat-messages').scroll((event) => {
+  event.stopPropagation();
+});
 
 const formatAMPM = (timeStamp) => {  
   let date = new Date(Number(timeStamp));
@@ -54,21 +65,28 @@ let populateMessages = function (messages) {
   let currentUserId;
   let loggedInUserId = localStorage.getItem("userId");
   messages.forEach(function (msg, index) {
-    let msgObj = {
-      userName: msg.senderUserId.firstName,
-      msg: msg.message,
-      date: msg.date,
-    };
-    if (currentUserId === undefined || currentUserId != msg.senderUserId._id) {
-      currentUserId = msg.senderUserId._id;
-    } else {
-      msgObj.sameUserMsg = true;
+    try {
+      let msgObj = {
+        userName: msg.senderUserId.firstName,
+        msg: msg.message,
+        date: msg.date,
+      };
+      if (currentUserId === undefined || currentUserId != msg.senderUserId._id) {
+        currentUserId = msg.senderUserId._id;
+      } else {
+        msgObj.sameUserMsg = true;
+      }
+      if (loggedInUserId != msg.senderUserId._id) {
+          msgObj.msgType = "receive";
+      }
+      buildMsgDOM(msgObj);
+    } catch (error) {
+      console.log(error);
     }
-    if (loggedInUserId != msg.senderUserId._id) {
-        msgObj.msgType = "receive";
-    }
-    buildMsgDOM(msgObj);
+   
   });
+  scrollToBottom();
+
 };
 
 let sendMsgFn = function () {
@@ -82,6 +100,7 @@ let sendMsgFn = function () {
   socket.emit("sendMsg", msgObj);
   msgObj.msgType = "send";
   buildMsgDOM(msgObj);
+  scrollToBottom();
 };
 
 $(".send-msg-btn").click(sendMsgFn);
@@ -96,6 +115,7 @@ socket.on("receivedMsg", function (msgObj) {
   audio.play();
   msgObj.msgType = "receive";
   buildMsgDOM(msgObj);
+  scrollToBottom
 });
 
 fetch("http://localhost:3000/groupchat")

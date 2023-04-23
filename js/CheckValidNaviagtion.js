@@ -14,12 +14,18 @@
         $emailElement.addClass('dn-disable-input');
         $emailElement.removeClass('bg-light');
         $("#dn-phone").val(result.data.phone);
-        $('#dn-country').val(result.data.address.country);
-        $('#dn-state').val(result.data.address.state);
-        $('#dn-city').val(result.data.address.city);
-        $('#dn-zipcode').val(result.data.address.zipcode);
-        $('#dn-address').val(result.data.address.streetAddress);
-        $('.dn-profile-image').attr('src', "http://localhost:3000/"+result.data.avatarPath)
+        if (result.data.address) {
+          $('#dn-country').val(result.data.address.country);
+          $('#dn-state').val(result.data.address.state);
+          $('#dn-city').val(result.data.address.city);
+          $('#dn-zipcode').val(result.data.address.zipcode);
+          $('#dn-address').val(result.data.address.streetAddress);
+        }
+        if(result.data.avatarPath) {
+          $('.dn-profile-image').attr('src', "http://localhost:3000/"+result.data.avatarPath)
+        } else {
+          $('.dn-profile-image').attr('src', "http://localhost:5500/images/default-avatar.jpg")
+        }
         $(".dn-profile-update-main").show();
       }
   })();
