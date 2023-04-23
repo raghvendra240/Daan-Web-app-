@@ -49,12 +49,15 @@ async function handlerVerification () {
        data: payload,
      });
      if (response.status == 'success') {
-        localStorage.removeItem('verificationCode');
         $('#donation-verification-success-modal').find('.daan-coins').text(response.daanCoins);
         $('#donation-verification-success-modal').show();
      }
    } catch (error) {
        console.log(error);
+       $('.js-error-msg').text = error.message;
+       $('#donation-verification-error-modal').show();
+   } finally {
+    localStorage.removeItem('verificationCode');
    }
 
 }
@@ -74,6 +77,7 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
   .then((response) => response.json())
   .then((response) => {
     if (response.isAuthenticated) {
+      localStorage.setItem('userId', response.data._id);
       $('.unauthenticated-block').addClass("dn-hidden");
       $(".dn-login-regsitration-forms").hide();
       $("#dn-loggedinuser-coins").text(response.data.daan);

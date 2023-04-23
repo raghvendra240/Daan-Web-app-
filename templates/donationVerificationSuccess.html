@@ -1,8 +1,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script>
 	function redirectToHome() {
-		alert(2);
-		window.location.href='https://localhost';
+		window.location.href='http://localhost:5500';
 	}
 </script>
 <div  id="donation-verification-success-modal" class="modal fade">
@@ -16,6 +15,24 @@
 			</div>
 			<div class="modal-body">
 				<p class="text-center">Your Updated Daan Coins are: <span class="daan-coins"></span></p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-block dn-cursor-pointer" onclick="window.location.href='https://localhost'">OK</button>
+			</div>
+		</div>
+	</div>
+</div> 
+<div  id="donation-verification-error-modal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE876;</i>
+				</div>				
+				<h4 class="modal-title">Verification Failed!</h4>	
+			</div>
+			<div class="modal-body">
+				<p class="text-center js-error-msg"></p>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-success btn-block dn-cursor-pointer" onclick="window.location.href='https://localhost'">OK</button>

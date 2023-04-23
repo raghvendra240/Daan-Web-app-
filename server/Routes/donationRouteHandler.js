@@ -100,6 +100,10 @@ module.exports.verifyDonation = async function (req, res) {
 
     const coins = donationObj[0].daanCoins;
     const donorId = donationObj[0].contactInfo;
+    const receiversCoin = await USER_MODAL.find({_id : receiverId});
+    if (receiversCoin[0].daan < coins) {
+      throw new Error('Not enough coins');
+    }
     /* Update Receiver Coins */
     const response = await USER_MODAL.findOneAndUpdate({_id : receiverId}, { $inc : {daan : -coins} }, {new: true})
     /* Update Donor cons*/
