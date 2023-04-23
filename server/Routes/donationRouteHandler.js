@@ -23,19 +23,25 @@ module.exports.post = async (req, res) => {
 
 module.exports.get = async function (req, res) {
   let data = [];
+  const query = {};
   if (req.params.userId) {
-    data = await DONATION_MODAL.find({
-      contactInfo: req.params.userId,
-    }).populate("contactInfo");
+    query.contactInfo = req.params.userId;
   } else if (req.params.donationId) {
-    data = await DONATION_MODAL.find({
-      _id: req.params.donationId,
-    }).populate("contactInfo");
-  } else {
-    data = await DONATION_MODAL.find({
-        donationStatus: {$ne : 2}
-      }).populate("contactInfo");
+    query._id = req.params.donationId;
+  }else {
+    query.donationStatus = {$ne : 2}
   }
+  data = await DONATION_MODAL.find(query).populate("contactInfo");
+  data.forEach(element => {
+      element.contactInfo = {
+          address: element.contactInfo.address,
+          email: element.contactInfo.email,
+          firstName: element.contactInfo.firstName,
+          lastName: element.contactInfo.lastName,
+          phoneNumber: element.contactInfo.phoneNumber,
+          _id: element.contactInfo._id
+      }
+  });
   data = data.sort((a, b) => b.createdAt - a.createdAt);
   res.status(200).json({
     status: "OK",

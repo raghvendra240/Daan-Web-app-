@@ -555,6 +555,35 @@ label {
   border-radius: 4px;
   box-shadow: 0px 0px 3px #000000;
 }
+.desciption-section .container.dn-title-container {
+  display: flex;
+  align-items: center;
+}
+.desciption-section .container.dn-title-container .left-side {
+  padding-right: 16px;
+  margin-right: 16px;
+  border-right: 4px solid rgba(14, 4, 5, 0.2);
+}
+.desciption-section .container.dn-title-container .right-side {
+  display: flex;
+  align-items: center;
+}
+.desciption-section .container.dn-title-container .right-side .dn-required-coins {
+  gap: 5px;
+  align-items: center;
+  display: flex;
+  box-shadow: inset 0px -3px 7px #c1c1c1;
+  padding: 4px 8px;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 26px;
+  background: white;
+  font-size: 16px;
+  margin-left: 24px;
+}
+.desciption-section .container.dn-title-container .right-side img {
+  width: 24px;
+}
 .desciption-section .dn-title {
   font-size: 50px;
   font-weight: bold;
