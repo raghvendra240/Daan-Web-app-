@@ -32,7 +32,9 @@ module.exports.get = async function (req, res) {
       _id: req.params.donationId,
     }).populate("contactInfo");
   } else {
-    data = await DONATION_MODAL.find().populate("contactInfo");
+    data = await DONATION_MODAL.find({
+        donationStatus: {$ne : 2}
+      }).populate("contactInfo");
   }
   data = data.sort((a, b) => b.createdAt - a.createdAt);
   res.status(200).json({
