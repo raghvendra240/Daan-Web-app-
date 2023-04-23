@@ -54,7 +54,7 @@ async function handlerVerification () {
      }
    } catch (error) {
        console.log(error);
-       $('.js-error-msg').text = error.message;
+       $('.js-error-msg').text = error.responseText;
        $('#donation-verification-error-modal').show();
    } finally {
     localStorage.removeItem('verificationCode');
