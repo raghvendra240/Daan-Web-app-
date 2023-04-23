@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000");
+const socket = io(BASE_SOCKET_URL);
 let userId = localStorage.getItem("userId");
 let firstPerson;
 let firstConversationId;
@@ -10,7 +10,7 @@ function setCurrentChatHeaderData(donorDetail) {
   $(".donor-name-header").text(donorDetail.firstName);
   let avatarPath = "../images/default-avatar.jpg";
   if (donorDetail.avatarPath)
-    avatarPath = "http://localhost:3000/" + donorDetail.avatarPath;
+    avatarPath = `${BASE_BE_URL}/${donorDetail.avatarPath}`;
   $(".donor-image-header").attr("src", avatarPath);
 }
 
@@ -26,7 +26,7 @@ function addNewChatInLeftNavigation(
   if (donorDetail.avatarPath) {
     $templateClone
       .find(".donor-image")
-      .attr("src", "http://localhost:3000/" + donorDetail.avatarPath);
+      .attr("src", `${BASE_BE_URL}/` + donorDetail.avatarPath);
   } else {
     $templateClone
       .find(".donor-image")
@@ -78,12 +78,12 @@ function loadChatMessages(msgArray, clearPreviousMessages) {
 }
 
 function loadChatWrapper() {
-  fetch("http://localhost:3000/user/" + otherPersonId)
+  fetch(`${BASE_BE_URL}/user/` + otherPersonId)
     .then((response) => response.json())
     .then((response) => {
       setCurrentChatHeaderData(response[0]);
       currentChatInChatBox = conversationId;
-      fetch("http://localhost:3000/messages/" + conversationId)
+      fetch(`${BASE_BE_URL}/messages/` + conversationId)
         .then((response) => response.json())
         .then((response) => {
           loadChatMessages(response, true);
@@ -97,7 +97,7 @@ async function loadConversationWrapper(conversation, makeChatActive) {
     otherPersonId = otherPersonId_;
     conversationId = conversation._id;
   }
- let rawResponse = await  fetch("http://localhost:3000/user/" + otherPersonId_)
+ let rawResponse = await  fetch(`${BASE_BE_URL}/user/` + otherPersonId_)
  let response = await rawResponse.json();
  addNewChatInLeftNavigation(response[0], makeChatActive, conversation._id);
  return;
@@ -108,7 +108,7 @@ async function loadConversationWrapper(conversation, makeChatActive) {
 }
 
 async function loadConversation(){
-  let rawResponse  = await fetch("http://localhost:3000/conversation/" + userId)
+  let rawResponse  = await fetch(`${BASE_BE_URL}/conversation/` + userId)
   let response = await rawResponse.json();
   response = response.sort((convA, convB) => {
     return convA.lastUpdated > convB.lastUpdated ? 1 : -1;
@@ -122,7 +122,7 @@ async function loadConversation(){
 }
 
 //Loads the chat when user navigate from contact donor page
-// fetch("http://localhost:3000/user/" + donorId)
+// fetch("${BASE_BE_URL}/user/" + donorId)
 //   .then((response) => response.json())
 //   .then((response) => {
 //     setCurrentChatHeaderData(response[0]);
@@ -181,7 +181,7 @@ socket.on("receivePrivateMsg", function (msgObj) {
     let $leftNavUser = $parent.find(`[data-conversation-id = ${msgObj.conversationId}]`);
     moveLeftNavElemUp($leftNavUser)
   }
-  // fetch("http://localhost:3000/conversation/" + msgObj.conversationId)
+  // fetch("${BASE_BE_URL}/conversation/" + msgObj.conversationId)
   //   .then((response) => response.json())
   //   .then((response) => {
   //    let otherPerson_ = response.members.find(member => member != userId);
@@ -194,7 +194,7 @@ socket.on("receivePrivateMsg", function (msgObj) {
 /* Handler when user came from contact donor page*/
 
 async function createConversation(donorId){
-  const rawResponse = await fetch('http://localhost:3000/conversation', {
+  const rawResponse = await fetch(`${BASE_BE_URL}/conversation`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -211,7 +211,7 @@ async function createConversation(donorId){
 }
 
 async function getConversation(donorId){
-  let rawResponse = await fetch("http://localhost:3000/conversation/"+donorId);
+  let rawResponse = await fetch(`${BASE_BE_URL}/conversation/`+donorId);
   let response = await rawResponse.json();
   let CONVERSATION;
   // console.log(response);

@@ -1,5 +1,5 @@
 (async () => {
-    let response = await fetch("http://localhost:3000/isAuthenticated", {
+    let response = await fetch(`${BASE_BE_URL}/isAuthenticated`, {
         credentials: "include",
       });
       let result = await response.json();
@@ -22,9 +22,9 @@
           $('#dn-address').val(result.data.address.streetAddress);
         }
         if(result.data.avatarPath) {
-          $('.dn-profile-image').attr('src', "http://localhost:3000/"+result.data.avatarPath)
+          $('.dn-profile-image').attr('src', `${BASE_BE_URL}/${result.data.avatarPath}`)
         } else {
-          $('.dn-profile-image').attr('src', "http://localhost:5500/images/default-avatar.jpg")
+          $('.dn-profile-image').attr('src', `${BASE_FE_URL}/images/default-avatar.jpg`)
         }
         $(".dn-profile-update-main").show();
       }

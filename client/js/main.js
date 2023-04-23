@@ -45,7 +45,7 @@ async function handlerVerification () {
   try {
     const response = await $.ajax({
        type: "POST",
-       url: "http://localhost:3000/donation/completed/verify",
+       url: `${BASE_BE_URL}/donation/completed/verify`,
        data: payload,
      });
      if (response.status == 'success') {
@@ -62,7 +62,7 @@ async function handlerVerification () {
 
 }
 
-fetch("http://localhost:3000/topdonor", {
+fetch(`${BASE_BE_URL}/topdonor`, {
   credentials: "include",
 })
   .then((response) => response.json())
@@ -73,7 +73,7 @@ fetch("http://localhost:3000/topdonor", {
     startSwiper();
   });
 // Check if the user is authenticated
-fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
+fetch(`${BASE_BE_URL}/isAuthenticated`, { credentials: "include" })
   .then((response) => response.json())
   .then((response) => {
     if (response.isAuthenticated) {
@@ -84,8 +84,8 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
       $('.authenticated-block').removeClass("dn-hidden");
       $('.dn-profile .user-name').text(`${response.data.firstName} ${response.data.lastName}`);
       if(response.data.avatarPath){
-        $('.dn-user-profile .dn-user-image').attr('src', "http://localhost:3000/" + response.data.avatarPath);
-        $('.dn-profile-photo img').attr('src', "http://localhost:3000/" + response.data.avatarPath);
+        $('.dn-user-profile .dn-user-image').attr('src', `${BASE_BE_URL}/${response.data.avatarPath}`);
+        $('.dn-profile-photo img').attr('src', `${BASE_BE_URL}/${response.data.avatarPath}`);
       }
       handlerVerification();
     }
@@ -109,7 +109,7 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
   }
 
   function loadRecentDonations(searchText) {
-    fetch("http://localhost:3000/donation")
+    fetch(`${BASE_BE_URL}/donation`)
       .then((response) => response.json())
       .then((response) => {
         let $parent = $('.doantion-card-wrapper');
@@ -130,8 +130,8 @@ fetch("http://localhost:3000/isAuthenticated", { credentials: "include" })
           $templateCopy.find('.dn-product-detail').val(itemStr);
           $templateCopy.find('.dn-product-title').text(item.itemTitle);
           if(item.images.length > 0) {
-            console.log("http://localhost:3000/"+item.images[0]);
-            $templateCopy.find('.dn-product-image').attr("src", "http://localhost:3000/"+item.images[0]);
+            console.log(`${BASE_BE_URL}/`+item.images[0]);
+            $templateCopy.find('.dn-product-image').attr("src", `${BASE_BE_URL}/`+item.images[0]);
           }else {
             $templateCopy.find('.dn-product-image').attr("src", "");
           }

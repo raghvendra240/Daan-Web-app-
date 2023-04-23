@@ -11,7 +11,7 @@ let $template = $parent.find('.carousel-item');
 productDetail.images.forEach(function(image, index) {
     let $templateClone = $template;
     if(index > 0) $templateClone = $template.clone();
-    $templateClone.find('img').attr('src','http://localhost:3000/' + image);
+    $templateClone.find('img').attr('src',`${BASE_BE_URL}/${image}`);
     if(index > 0 ) $parent.append($templateClone); 
 })
 
@@ -34,5 +34,5 @@ $('.js-required-coins').text(productDetail.daanCoins);
 
 $('.dn-chat-with-donor-btn').click(function(e) {
     localStorage.setItem('donorId',productDetail.contactInfo._id);
-    window.location.href = "/htmlPages/privateChat.html"
+    window.location.href = "./privateChat.html"
 });

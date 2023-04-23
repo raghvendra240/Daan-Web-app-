@@ -14,7 +14,7 @@ $("#dn-donateform-submit").click(async (event) => {
   imageFormData.append("description", descriptionData);
   imageFormData.append("title", title);
   imageFormData.append("daanCoins", daanCoins);
-  let response = await fetch("http://localhost:3000/donation", {
+  let response = await fetch(`${BASE_BE_URL}/donation`, {
     credentials: "include",
     method: "POST",
     body: imageFormData,
@@ -58,7 +58,7 @@ $(".dn-postupload-buttons button").click(function(event) {
 })
 
 async function fillData(donationId) {
-  const rawResponse = await fetch("http://localhost:3000/donation/bydonationid/"+ donationId);
+  const rawResponse = await fetch(`${BASE_BE_URL}/donation/bydonationid/${donationId}`);
   let response = await rawResponse.json();
   response = response.data[0];
 

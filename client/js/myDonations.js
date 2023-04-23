@@ -13,7 +13,7 @@ function populateData(donationData, containerID) {
   if (donationData.images.length) {
     $templateClone
       .find(".donation-image")
-      .attr("src", "http://localhost:3000/" + donationData.images[0]);
+      .attr("src", `${BASE_BE_URL}/${donationData.images[0]}`);
   }
   if (containerID != 'new-donations') {
     $templateClone.find('.btn-container').remove();
@@ -22,7 +22,7 @@ function populateData(donationData, containerID) {
 }
 
 async function fetchDonations() {
-  const rawResponse = await fetch("http://localhost:3000/donation/" + userId);
+  const rawResponse = await fetch(`${BASE_BE_URL}/donation/${userId}`);
   const response = await rawResponse.json();
   const data = response.data;
   for (let donation of data) {
@@ -83,7 +83,7 @@ $("body").on("click", function (event) {
 $(".btn-delete-confirm").click(async function (event) {
   const DonationId = localStorage.getItem("toDeleteDonationId");
   let rawResponse = await fetch(
-    "http://localhost:3000/donation/" + DonationId,
+    `${BASE_BE_URL}/donation/${DonationId}`,
     {
       method: "DELETE",
     }
@@ -120,7 +120,7 @@ $(".btn-donated-confirm").click( async (event) => {
   try {
    const response = await $.ajax({
       type: "POST",
-      url: "http://localhost:3000/donation/completed/send",
+      url: `${BASE_BE_URL}/donation/completed/send`,
       data: payload,
     });
     closeModal();

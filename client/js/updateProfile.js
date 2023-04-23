@@ -29,7 +29,7 @@ $("#dn-submit-btn").click(async function (event) {
     formData.append("zipcode", $("#dn-zipcode").val());
     formData.append("city", $("#dn-city").val());
     formData.append("address", $("#dn-address").val());
-    let response = await fetch("http://localhost:3000/updateProfile", {
+    let response = await fetch(`${BASE_BE_URL}/updateProfile`, {
       credentials: "include",
       method: "PATCH",
       body: formData,

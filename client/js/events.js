@@ -73,7 +73,7 @@ $(".registration-form").submit((event) => {
   };
   $.ajax({
     type: "POST",
-    url: "http://localhost:3000/signup",
+    url: `${BASE_BE_URL}/signup`,
     crossDomain: true,
     xhrFields: {
       withCredentials: true,
@@ -116,7 +116,7 @@ $(".otp-verification-form").submit((event) => {
   };
   $.ajax({
     type: "POST",
-    url: "http://localhost:3000/verify/otp",
+    url: `${BASE_BE_URL}/verify/otp`,
     crossDomain: true,
     xhrFields: {
       withCredentials: true,
@@ -149,7 +149,7 @@ $(".login-form").submit((event) => {
   };
   $.ajax({
     type: "POST",
-    url: "http://localhost:3000/login",
+    url: `${BASE_BE_URL}/login`,
     crossDomain: true,
     dataType: 'json',
     xhrFields: {
@@ -188,7 +188,7 @@ $("dn-user-info").click((event) => {
 $('.dn-logout-options').click((event) => {
   $.ajax({
     type: "GET",
-    url: "http://localhost:3000/logout",
+    url: `${BASE_BE_URL}/logout`,
     crossDomain: true,
     dataType: 'json',
     xhrFields: {

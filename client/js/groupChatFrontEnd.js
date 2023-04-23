@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000");
+const socket = io(BASE_SOCKET_URL);
 
 let $parent = $(".chat-messages");
 let $template = $parent.find(".message");
@@ -118,7 +118,7 @@ socket.on("receivedMsg", function (msgObj) {
   scrollToBottom
 });
 
-fetch("http://localhost:3000/groupchat")
+fetch(`${BASE_BE_URL}/groupchat`)
   .then((response) => response.json())
   .then((data) => {
     let messages = data.data;
