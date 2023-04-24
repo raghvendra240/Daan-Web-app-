@@ -36,14 +36,18 @@ const whitelist = [
   "http://localhost:5500",
   "https://localhost",
   "http://127.0.0.1:5500",
-  "https://daanapis.onrender.com"
+  "https://daanweb.netlify.app"
 ];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+
+      callback(new Error("Not allowed by CORS", {
+        origin,
+        whitelist,
+      }));
     }
   },
   credentials: true,
@@ -403,7 +407,7 @@ const server = app.listen(PORT, () => {
 //Initialize groupChat socket
 const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://localhost:5500", "http://127.0.0.1:5500", "https://daanapis.onrender.com"]
+    origin: ["http://localhost:5500", "http://127.0.0.1:5500", "https://daanweb.netlify.app"]
   },
 });
 
