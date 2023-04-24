@@ -36,7 +36,7 @@ const whitelist = [
   "http://localhost:5500",
   "https://localhost",
   "http://127.0.0.1:5500",
-  "https://daanweb.netlify.app"
+  "https://daandwaar.netlify.app"
 ];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -407,7 +407,7 @@ const server = app.listen(PORT, () => {
 //Initialize groupChat socket
 const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://localhost:5500", "http://127.0.0.1:5500", "https://daanweb.netlify.app"]
+    origin: whitelist
   },
 });
 
